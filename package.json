@@ -11,6 +11,8 @@
   "author": "martinvondermey",
   "contributors": [],
   "dependencies": {
+    "express": "^4.14.1",
+    "fs": "0.0.1-security",
     "sqlite3": "^3.1.8"
   }
 }
