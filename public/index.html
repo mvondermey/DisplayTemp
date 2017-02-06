@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 <style>
-    
-
     
 h1 { color: #577777; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
 h2 { color: #7c795d; font-family: 'Source Sans Pro', sans-serif; font-size: 28px; font-weight: 400; line-height: 32px; margin: 0 0 24px; }
@@ -108,8 +107,15 @@ input[type=range]:focus::-ms-fill-upper {
     background: #ccc;
 }
 
+#chart div {
+  display: inline-block;
+  background: #4285F4;
+  width: 20px;
+  margin-right: 3px;
+}
+
 section {
-        background: black;
+        background: lightgoldenrodyellow;
         color: white;
         border-radius: 1em;
         padding: 1em;
@@ -123,11 +129,17 @@ section {
 </style>
 <body>
    
+
+    
+
+
+
+    
     <section>
     
     <div class="boxed">
 
-    <div style="width:480px;height:320px;border:1px solid #000;">
+    <div style="width:480px;height:320px;border:1px solid #F67;">
        
         <section>
         
@@ -149,32 +161,22 @@ section {
   </h2>
    
    </center>
-            
-            </section>
-            
+         <div id="chart" ></div>   
+<script type="text/javascript">
+ 
+d3.select('#chart')
+  .selectAll("div")
+  .data([4, 8, 15, 16, 23, 42])
+  .enter()
+  .append("div")
+  .style("height", (d)=> d + "px")
+   
+    
+</script>
   </div>
   </div>
     </section>
     
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script>
- 
- var holder = d3.select("body")
-      .append("svg")
-      .attr("width", width)    
-      .attr("height", height); 
- 
-// draw the circle
-holder.append("circle")
-  .attr("cx", 20)
-  .attr("cy", 20) 
-  .style("fill", "none")   
-  .style("stroke", "blue") 
-  .attr("r", 10);
-  
- 
-  
-  
-</script>
+
 </body>
 

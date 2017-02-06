@@ -1,8 +1,16 @@
 {
-    "name": "DisplayTemp",
-    "version": "1.0.0",
-    "keywords": ["util", "functional", "server", "client", "browser"],
-    "author": "martinvondermey",
-    "contributors": [],
-    "dependencies": {}
+  "name": "DisplayTemp",
+  "version": "1.0.0",
+  "keywords": [
+    "util",
+    "functional",
+    "server",
+    "client",
+    "browser"
+  ],
+  "author": "martinvondermey",
+  "contributors": [],
+  "dependencies": {
+    "sqlite3": "^3.1.8"
+  }
 }
