@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <style>
+    
+
+    
 h1 { color: #577777; font-family: 'Trocchi', serif; font-size: 45px; font-weight: normal; line-height: 48px; margin: 0; }
 h2 { color: #7c795d; font-family: 'Source Sans Pro', sans-serif; font-size: 28px; font-weight: 400; line-height: 32px; margin: 0 0 24px; }
 .subheader { font-size: 26px; font-weight: 300; color: #ffcc66; margin: 0 0 24px; }
@@ -10,6 +13,11 @@ a:hover { color: #ffcc66 }
 body {
     padding: 30px;
 }
+
+.boxed {
+  border: 2px solid green ;
+}
+
 input[type=range] {
     /*removes default webkit styles*/
     -webkit-appearance: none;
@@ -99,19 +107,55 @@ input[type=range]:focus::-ms-fill-lower {
 input[type=range]:focus::-ms-fill-upper {
     background: #ccc;
 }
+
+section {
+        background: black;
+        color: white;
+        border-radius: 1em;
+        padding: 1em;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%) }
+
+
 </style>
 <body>
    
+    <section>
+    
+    <div class="boxed">
+
+    <div style="width:480px;height:320px;border:1px solid #000;">
+       
+        <section>
+        
     <center>
-   <input type="range" name="ageInputName" id="ageInputId" value="24" min="10" max="30" oninput="ageOutputId.value = ageInputId.value">
-   <br>
+        
+   <h2>
+   <output name="textCurrentTemperatureOutputName" id="textCurrent">Current Temperature</output>
+   <output name="currentTemperatureOutputName" id="currentTemperatureOutputId">24</output>
+   <output name="unitCurrentTemperatureOutputName" id="unitCurrent">°C</output>
+   </h2>
+        
+   <input type="range" name="setTemperatureInputName" id="setInputId" value="24" min="10" max="30" oninput="setTemperatureOutputId.value = setInputId.value">
+   <br><br>
  
-   <h1 >
-   <output name="ageOutputName" id="ageOutputId">24</output>
-  </h1>
-  
+  <h2>
+   <output name="textSetTemperatureOutputName" id="textSet">Temperature to set </output>
+   <output name="setTemperatureOutputName" id="setTemperatureOutputId">24</output>
+   <output name="unitSetTemperatureOutputName" id="unitSet">°C</output>
+  </h2>
+   
    </center>
-  
+            
+            </section>
+            
+  </div>
+  </div>
+    </section>
+    
 <script src="https://d3js.org/d3.v3.min.js"></script>
 <script>
  
