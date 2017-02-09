@@ -35,7 +35,7 @@ app2.get('/', function (req, res) {
         console.log(err);
     else
         var msg = data.toString();
-        console.log("GetTemp");
+        console.log("Get Temp");
 
         var msg2 = msg.replace(/{{CurrentTemperature}}/gi,getTemperature());
         res.send(msg2);
