@@ -37,8 +37,14 @@ app2.get('/', function (req, res) {
         var msg = data.toString();
         console.log("Get Temp");
 
-        var msg2 = msg.replace(/{{CurrentTemperature}}/gi,getTemperature());
+        getTemperature( function (Temperatur)
+        {
+          
+        console.log("Hier "+Temperatur);
+               
+        var msg2 = msg.replace(/{{CurrentTemperature}}/gi,parseFloat(Temperatur).toFixed(2));
         res.send(msg2);
+        });
 //
 });
 });
@@ -47,7 +53,7 @@ app2.listen(3001, function () {
   console.log('Example app2 listening on port 3001!');
 });
 
-function getTemperature() {
+function getTemperature(callback) {
 console.log("Entering");
     return http.get({
         host: 'localhost',
@@ -70,7 +76,8 @@ console.log("Entering");
             console.log(parsed);
             console.log("Entering6");
             console.log(parsed.temperature);
-            return parsed.temperature;
+            var Temperatur = parsed.temperature;
+            callback(Temperatur);
         });
     });
     }
