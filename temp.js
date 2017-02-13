@@ -1,32 +1,93 @@
 var express = require('express');
 var fs = require('fs');
 var http = require('http');
+var network = require('network');
+var wifi = require('node-wifi');
 
 var app = express();
 var app2 = express();
+var app3 = express();
+var app4 = express();
+var app5 = express();
 
 app.get('/', function (req, res) {
     //
-    fs.readFile("C:\\Users\\martinvondermey\\Documents\\NetBeansProjects\\DisplayTemp\\package.json" , function(err,data)
-{
-    if(err)
-        console.log(err);
-    else
-        //console.log(data.toString());
-     //res.send(data.toString());
      var max = 30;
      var min = 10;
      res.json({"temperature" : Math.random() * (max - min) + min});
 });
+//
+app3.get('/', function (req, res) {
     //
+    network.get_active_interface(function(err, obj) {
+        res.send(obj);
+    });
+    
+//
+});
+//
+app4.get('/', function (req, res) {
+    //
+    network.get_interfaces_list(function(err, obj) {
+        res.send(obj);
+    });
+    
+//
+});
+//
+//
+    app5.get('/', function (req, res) {
+    //
+wifi.init({
+    iface : null // network interface, choose a random wifi interface if set to null 
+});
  
+// Scan networks 
+wifi.scan(function(err, networks) {
+    if (err) {
+        console.log(err);
+    } else {
+        res.send(networks);
+ 
+    }
 });
-
+//
+});
+//
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('Example app listening on port 3000! Return Temperature');
 });
 
-//app2.use(express.static(__dirname + '/public'));
+app2.get('/wifi.html', function (req, res) {
+    //
+    fs.readFile(__dirname + '/public/wifi.html' , function(err,data)
+{
+    if(err)
+        console.log(err);
+    else
+        var msg = data.toString();
+        res.send(msg);
+        });
+//
+});
+
+
+app2.get('/mystyle.css', function (req, res) {
+    //
+    fs.readFile(__dirname + '/public/mystyle.css' , function(err,data)
+{
+    if(err)
+        console.log(err);
+    else
+        var msg = data.toString();
+
+        res.send(msg);
+        });
+//
+});
+
+
+
 app2.get('/', function (req, res) {
     //
     fs.readFile(__dirname + '/public/index.html' , function(err,data)
@@ -51,6 +112,18 @@ app2.get('/', function (req, res) {
 
 app2.listen(3001, function () {
   console.log('Example app2 listening on port 3001!');
+});
+
+app3.listen(3003, function () {
+  console.log('Example app3 listening on port 3003!. Return available Network to connect');
+});
+
+app4.listen(3004, function () {
+  console.log('Example app4 listening on port 3004!. Return available Network devices');
+});
+
+app5.listen(3005, function () {
+  console.log('Example app5 listening on port 3005!. Return available Wifi devices');
 });
 
 function getTemperature(callback) {
