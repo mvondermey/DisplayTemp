@@ -3,17 +3,16 @@
 <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="mystyle.css">
 
-<body onload="myFunction()">
+<body >
     
     <section>
     
+        <center>
+        
      <div class="boxed">
 
       <div style="width:480px;height:320px;border:1px solid #F67;">
-       
-    <section>
-        
-    <center>
+ 
  
    <h2>
    <output name="textCurrentTemperatureOutputName" id="textCurrent">Current Temperature</output>
@@ -32,26 +31,14 @@
    
     <div id="chart" >
     <a class="button_example" href="wifi.html">Wifi Networks</a>
-    
-    <select id="mySelect" size="8">        
-    </select>
-    
+ 
    </div>
-   
-             
-          
-   
+
    </center>
-           
-         
+                    
 <script type="text/javascript">
  
- function myFunction() {
-    var x = document.getElementById("mySelect");
-    var option = document.createElement("option");
-    option.text = "Kiwi";
-    x.add(option, x[2]);
-}
+
  
 d3.select('#chart')
   .selectAll("div")
@@ -62,8 +49,7 @@ d3.select('#chart')
    
     
 </script>
-  </div>
-  </div>
+
     </section>
    
 </body>

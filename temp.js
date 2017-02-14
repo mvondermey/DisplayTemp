@@ -66,8 +66,14 @@ app2.get('/wifi.html', function (req, res) {
         console.log(err);
     else
         var msg = data.toString();
-        res.send(msg);
+        //
+        getWifiList( function (WifiList)
+        {
+        console.log(WifiList);
+        var msg2 = msg.replace(/MYWIFI/,WifiList);
+        res.send(msg2);
         });
+    });
 //
 });
 
@@ -85,7 +91,6 @@ app2.get('/mystyle.css', function (req, res) {
         });
 //
 });
-
 
 
 app2.get('/', function (req, res) {
@@ -125,7 +130,30 @@ app4.listen(3004, function () {
 app5.listen(3005, function () {
   console.log('Example app5 listening on port 3005!. Return available Wifi devices');
 });
-
+//
+function getWifiList(callback) {
+console.log("Entering");
+    return http.get({
+        host: 'localhost',
+        port: 3005,
+        path: '/'
+    }, function(response) {
+        // Continuously update stream with data
+        console.log("Entering2");
+        var body = '';
+        response.on('data', function(d) {
+            console.log("Entering3");
+            body += d;
+        });
+        response.on('end', function() {
+        console.log("Entering4");
+        console.log(body);
+    // Data reception is done, do whatever with it!
+            callback(body);
+        });
+    });
+}
+//
 function getTemperature(callback) {
 console.log("Entering");
     return http.get({
