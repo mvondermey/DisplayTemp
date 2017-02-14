@@ -3,6 +3,7 @@ var fs = require('fs');
 var http = require('http');
 var network = require('network');
 var wifi = require('node-wifi');
+var bodyParser = require("body-parser");
 
 var app = express();
 var app2 = express();
@@ -10,6 +11,9 @@ var app3 = express();
 var app4 = express();
 var app5 = express();
 var app6 = express();
+
+app6.use(bodyParser.urlencoded({ extended: false }));
+app6.use(bodyParser.json());
 
 app.get('/', function (req, res) {
     //
@@ -57,9 +61,8 @@ wifi.scan(function(err, networks) {
 //
 app6.post('/login',function(req,res){
   console.log("Inside login");
-  var wifi_ssid=req.body.user;
-  var wifi_password=req.body.password;
-  console.log("Wifi ssid = "+wifi_ssid+", password is "+wifi_password);
+  console.log(req.body);
+  
   res.end("yes");
 });
 //

@@ -59,27 +59,15 @@ and open the template in the editor.
     WinId = window.open('','_parent','width=100,height=100');
     if (!WinId.opener) WinId.opener = self;
     Text = '<form ';
-    Text += 'onSubmit="ConfigureNetwork()">';
-    Text += 'Password for '+value+' <input type="password" id="WifiPassword">';
+    Text += 'action="http://localhost:3006/login" method="post">';
+    Text += 'Password for '+value+' <input type="password" name="WifiPassword" id="WifiPassword">';
     Text += '<\/form>';
     WinId.document.open();
     WinId.document.write(Text);
     WinId.document.close();
 }
  
- function ConfigureNetwork(){
-     //document.getElementById("demo").innerHTML = "Configure Network";
-     //
-     alert("Configure Network");
-     //
-     $.post("http://localhost:3006/login",{user: user,password: pass}, function(data){
-            if(data==='done')
-              {
-                alert("login success");
-              }
-          });
-     //
- }
+
 
     
 </script>
