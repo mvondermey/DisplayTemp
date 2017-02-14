@@ -9,6 +9,7 @@ var app2 = express();
 var app3 = express();
 var app4 = express();
 var app5 = express();
+var app6 = express();
 
 app.get('/', function (req, res) {
     //
@@ -36,8 +37,8 @@ app4.get('/', function (req, res) {
 });
 //
 //
-    app5.get('/', function (req, res) {
-    //
+app5.get('/', function (req, res) {
+//
 wifi.init({
     iface : null // network interface, choose a random wifi interface if set to null 
 });
@@ -52,6 +53,14 @@ wifi.scan(function(err, networks) {
     }
 });
 //
+});
+//
+app6.post('/login',function(req,res){
+  console.log("Inside login");
+  var wifi_ssid=req.body.user;
+  var wifi_password=req.body.password;
+  console.log("Wifi ssid = "+wifi_ssid+", password is "+wifi_password);
+  res.end("yes");
 });
 //
 app.listen(3000, function () {
@@ -129,6 +138,10 @@ app4.listen(3004, function () {
 
 app5.listen(3005, function () {
   console.log('Example app5 listening on port 3005!. Return available Wifi devices');
+});
+//
+app6.listen(3006, function () {
+  console.log('Example app6 listening on port 3006!. Set Network devices');
 });
 //
 function getWifiList(callback) {
