@@ -5,14 +5,12 @@
 
 <body >
     
-    <section>
+    <p id="demo"></p>
     
+    <section>
         <center>
-        
-           <div class="boxed">
-
+        <div class="boxed">
       <div style="width:480px;height:320px;border:1px solid #F67;">
- 
  
    <h2>
    <output name="textCurrentTemperatureOutputName" id="textCurrent">Current Temperature</output>
@@ -40,18 +38,20 @@
 
 var dataArray = [3, 13, 23, 33];
  
- Text = '<form ';
- Text += 'action="http://127.0.0.1:3003" method="get">';
+ var Text = '<form ';
+ Text += 'action="http://127.0.0.1:3003" method="get" id="MyNetwork" name="MyNetwork">';
  Text += '<\/form>';
  
+ document.getElementById("demo").innerHTML = Text;
+ document.forms["MyNetwork"].submit();
  
-var svg = d3.select('#chart')
-  
+var svg = d3.select('#chart');
+
 svg.selectAll("div")
   .data(dataArray)
   .enter()
   .append("div")
-  .style("height", (d)=> d + "px")
+  .style("height", (d)=> d + "px");
    
     
 </script>
