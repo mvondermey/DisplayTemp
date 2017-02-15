@@ -88,8 +88,7 @@ app2.get('/wifi.html', function (req, res) {
     });
 //
 });
-
-
+//
 app2.get('/mystyle.css', function (req, res) {
     //
     fs.readFile(__dirname + '/public/mystyle.css' , function(err,data)
@@ -100,10 +99,10 @@ app2.get('/mystyle.css', function (req, res) {
         var msg = data.toString();
 
         res.send(msg);
-        });
+    });
 //
 });
-
+//
 
 app2.get('/', function (req, res) {
     //
