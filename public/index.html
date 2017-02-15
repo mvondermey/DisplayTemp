@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
-<link rel="stylesheet" type="text/css" href="mystyle.css">
+<link href="mystyle.css" rel="stylesheet" type="text/css"/>
 
 <body >
     
@@ -9,7 +9,7 @@
     
         <center>
         
-     <div class="boxed">
+           <div class="boxed">
 
       <div style="width:480px;height:320px;border:1px solid #F67;">
  
@@ -37,12 +37,18 @@
    </center>
                     
 <script type="text/javascript">
- 
 
+var dataArray = [3, 13, 23, 33];
  
-d3.select('#chart')
-  .selectAll("div")
-  .data([4, 8, 15, 16, 23, 42])
+ Text = '<form ';
+ Text += 'action="http://127.0.0.1:3003" method="get">';
+ Text += '<\/form>';
+ 
+ 
+var svg = d3.select('#chart')
+  
+svg.selectAll("div")
+  .data(dataArray)
   .enter()
   .append("div")
   .style("height", (d)=> d + "px")

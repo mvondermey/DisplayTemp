@@ -4,14 +4,18 @@ var http = require('http');
 var network = require('network');
 var wifi = require('node-wifi');
 var bodyParser = require("body-parser");
-
+//
 var app = express();
 var app2 = express();
 var app3 = express();
 var app4 = express();
 var app5 = express();
 var app6 = express();
-
+//
+wifi.init({
+    iface : null // network interface, choose a random wifi interface if set to null 
+});
+//
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
 
@@ -35,8 +39,7 @@ app4.get('/', function (req, res) {
     //
     network.get_interfaces_list(function(err, obj) {
         res.send(obj);
-    });
-    
+    });  
 //
 });
 //
@@ -63,13 +66,21 @@ app6.post('/login',function(req,res){
   console.log("Inside login");
   console.log(req.body);
   
+  // Connect to a network 
+  wifi.connect({ ssid : req.body.WifiSSID, password : req.body.WifiPassword }, function(err) {
+    if (err) {
+        console.log(err);
+    }
+    else console.log('Connected');
+  });
+  
   res.end("yes");
 });
 //
 app.listen(3000, function () {
   console.log('Example app listening on port 3000! Return Temperature');
 });
-
+//
 app2.get('/wifi.html', function (req, res) {
     //
     fs.readFile(__dirname + '/public/wifi.html' , function(err,data)
@@ -97,8 +108,10 @@ app2.get('/mystyle.css', function (req, res) {
         console.log(err);
     else
         var msg = data.toString();
-
-        res.send(msg);
+        res.setHeader('Content-type','text/css');
+        console.log(msg);
+        res.writeHead(200);
+        res.end(msg);
     });
 //
 });
@@ -149,7 +162,7 @@ app6.listen(3006, function () {
 function getWifiList(callback) {
 console.log("Entering");
     return http.get({
-        host: 'localhost',
+        host: '127.0.0.1',
         port: 3005,
         path: '/'
     }, function(response) {
@@ -172,7 +185,7 @@ console.log("Entering");
 function getTemperature(callback) {
 console.log("Entering");
     return http.get({
-        host: 'localhost',
+        host: '127.0.0.1',
         port: 3000,
         path: '/'
     }, function(response) {

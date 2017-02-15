@@ -59,7 +59,7 @@ and open the template in the editor.
     WinId = window.open('','_parent','width=100,height=100');
     if (!WinId.opener) WinId.opener = self;
     Text = '<form ';
-    Text += 'action="http://localhost:3006/login" method="post">';
+    Text += 'action="http://127.0.0.1:3006/login" method="post">';
     Text += 'Password for '+value+' <input type="password" name="WifiPassword" id="WifiPassword" >';
     Text += '<input type="hidden" value="'+value+'" name="WifiSSID" id="WifiSSID" >';
     //Text += '<input type="hidden" value=value name="WifiSSID" id="WifiSSID" />'    ';
