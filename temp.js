@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var http = require('http');
 var network = require('network');
-var wifi = require('node-wifi');
+var wifi = require('node-wifi-scanner');
 var bodyParser = require("body-parser");
 //
 var app = express();
@@ -11,10 +11,6 @@ var app3 = express();
 var app4 = express();
 var app5 = express();
 var app6 = express();
-//
-wifi.init({
-    iface : null // network interface, choose a random wifi interface if set to null 
-});
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
@@ -45,18 +41,12 @@ app4.get('/', function (req, res) {
 //
 //
 app5.get('/', function (req, res) {
-//
-wifi.init({
-    iface : null // network interface, choose a random wifi interface if set to null 
-});
- 
 // Scan networks 
 wifi.scan(function(err, networks) {
     if (err) {
         console.log(err);
     } else {
         res.send(networks);
- 
     }
 });
 //
