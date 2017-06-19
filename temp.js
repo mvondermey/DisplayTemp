@@ -2,7 +2,7 @@ var express = require('express');
 var fs = require('fs');
 var http = require('http');
 var network = require('network');
-var wifi = require('node-wifi-scanner');
+var wifi = require('iwlist')('wlan0');
 var bodyParser = require("body-parser");
 //
 var app = express();
