@@ -42,12 +42,12 @@ and open the template in the editor.
     var myObj2 = JSON.parse(myObj);
     var txt = "<table border='1'>";
     for (y in myObj2) {
-        if (myObj2[y].ssid){
+        if (myObj2[y].essid){
                 var option = document.createElement("option");
-    option.text = myObj2[y].ssid;
+    option.text = myObj2[y].essid;
     x.add(option, x[2]);
     //
-         txt += "<tr><td>" + myObj2[y].ssid + "</td></tr>";
+         txt += "<tr><td>" + myObj2[y].essid + "</td></tr>";
      }
     }
     txt += "</table>" ;
