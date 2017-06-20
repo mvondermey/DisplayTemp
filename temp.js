@@ -52,6 +52,14 @@ wifi.scan(function(err, networks) {
 //
 });
 //
+app6.post('/temperature',function(req,res){
+    //
+    console.log("Inside temperature");
+    console.log(req.body);
+    //
+});
+
+//
 app6.post('/login',function(req,res){
   console.log("Inside login");
   console.log(req.body);

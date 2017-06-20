@@ -38,6 +38,10 @@
    
    function setTemperatureFunction(){
       document.getElementById("setTemperatureOutputId").value =   document.getElementById("setInputId").value;
+      //
+      document.body.innerHTML += '<form id="temperatureForm" action="http://localhost:3006/temperature" method="post"><input type="hidden" name="q" value="a"></form>';
+      document.getElementById("temperatureForm").submit();
+      //
    }
    
    </script>
