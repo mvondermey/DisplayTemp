@@ -18,7 +18,7 @@
    <output name="unitCurrentTemperatureOutputName" id="unitCurrent">°C</output>
    </h2>
         
-   <input type="range" name="setTemperatureInputName" id="setInputId" value="24" min="10" max="30" oninput="setTemperatureOutputId.value = setInputId.value">
+   <input type="range" name="setTemperatureInputName" id="setInputId" value="24" min="10" max="30" oninput="setTemperatureFunction();">
    <br><br>
  
   <h2>
@@ -36,9 +36,9 @@
         
    <script type="text/javascript">
    
-   var temperature = document.getElementById(setTemperatureOutputId).innerHTML;
-   
-   window.alert(temperature);
+   function setTemperatureFunction(){
+      document.getElementById("setTemperatureOutputId").value =   document.getElementById("setInputId").value;
+   }
    
    </script>
         
