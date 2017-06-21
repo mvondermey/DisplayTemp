@@ -39,7 +39,11 @@
    function setTemperatureFunction(){
       document.getElementById("setTemperatureOutputId").value =   document.getElementById("setInputId").value;
       //
-      document.body.innerHTML += '<form id="temperatureForm" action="http://localhost:3006/temperature" method="post"><input type="hidden" name="q" value="a"></form>';
+      document.alert("Call function");
+      //
+      //
+      //
+      document.body.innerHTML += '<form id="temperatureForm" action="http://localhost:3006/temperature" method="post"><input type="hidden" name="temperature1" value='+document.getElementById("setTemperatureOutputId").value+'></form>';
       document.getElementById("temperatureForm").submit();
       //
    }
