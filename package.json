@@ -16,6 +16,7 @@
     "fs": "0.0.1-security",
     "http": "0.0.0",
     "iwlist": "0.0.5",
+    "jsonfile": "^3.0.0",
     "network": "^0.3.2",
     "node-wifi": "^1.2.2",
     "node-wifi-scanner": "^1.0.0",

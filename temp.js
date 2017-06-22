@@ -1,9 +1,13 @@
+//
 var express = require('express');
 var fs = require('fs');
 var http = require('http');
 var network = require('network');
 var wifi = require('iwlist')('wlan0');
 var bodyParser = require("body-parser");
+var jsonfile = require('jsonfile');
+//
+var file = 'data.json';
 //
 var app = express();
 var app2 = express();
@@ -14,7 +18,9 @@ var app6 = express();
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
-
+app2.use(bodyParser.urlencoded({ extended: false }));
+app3.use(bodyParser.json());
+//
 app.get('/', function (req, res) {
     //
      var max = 30;
@@ -52,10 +58,17 @@ wifi.scan(function(err, networks) {
 //
 });
 //
-app6.post('/temperature',function(req,res){
+app2.post('/',function(req,res){
     //
     console.log("Inside temperature");
     console.log(req.body);
+    res.end();
+    //
+    jsonfile.writeFile(file, JSON.stringify(req.body), function(err) {
+            //
+            if(err)
+                console.log(err);
+     });      
     //
 });
 
@@ -118,6 +131,7 @@ app2.get('/mystyle.css', function (req, res) {
 app2.get('/', function (req, res) {
     //
     fs.readFile(__dirname + '/public/index.html' , function(err,data)
+    //
 {
     if(err)
         console.log(err);
@@ -127,12 +141,27 @@ app2.get('/', function (req, res) {
 
         getTemperature( function (Temperatur)
         {
-          
         console.log("Hier "+Temperatur);
-               
-        var msg2 = msg.replace(/{{CurrentTemperature}}/gi,parseFloat(Temperatur).toFixed(2));
-        res.send(msg2);
+            //
+            jsonfile.readFile(file, function(err, obj) {
+            //
+            if(err){
+                console.log(err);
+                obj = JSON.stringify({ temperature1: '20' });
+                if (err.code == 'ENOENT') jsonfile.writeFileSync(file, obj);
+            } 
+                //
+                console.log("Obj "+obj);
+                console.log(JSON.parse(obj));
+                //
+            var msg2 = msg.replace(/{{CurrentTemperature}}/gi,parseFloat(Temperatur).toFixed(2));
+            var msg3 = msg2.replace(/{{TargetTemperature}}/gi,parseFloat(JSON.parse(obj).temperature1).toFixed(2));
+            res.send(msg3);
+        
+            //
         });
+        //
+    });
 //
 });
 });
@@ -160,7 +189,6 @@ app6.listen(3006, function () {
 function getWifiList(callback) {
 console.log("Entering");
     return http.get({
-        host: '127.0.0.1',
         port: 3005,
         path: '/'
     }, function(response) {

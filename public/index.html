@@ -6,6 +6,11 @@
 <body >
     
     <p id="demo"></p>
+  
+    <iframe width="0" height="0" name="dummyframe" id="dummyframe"></iframe>
+    
+    <form id="temperatureForm" target="dummyframe" method="post"><input type="hidden" name="temperature1" id="temperature1" value="101">
+    </form>
     
     <section>
         <center>
@@ -18,12 +23,12 @@
    <output name="unitCurrentTemperatureOutputName" id="unitCurrent">°C</output>
    </h2>
         
-   <input type="range" name="setTemperatureInputName" id="setInputId" value="24" min="10" max="30" oninput="setTemperatureFunction();">
+   <input type="range" name="setTemperatureInputName" id="setInputId" value="{{TargetTemperature}}" min="10" max="30" onInput="setTemperatureOutputId.value=setInputId.value;setTemperatureFunction();">
    <br><br>
  
   <h2>
    <output name="textSetTemperatureOutputName" id="textSet">Temperature to set </output>
-   <output name="setTemperatureOutputName" id="setTemperatureOutputId">24</output>
+   <output name="setTemperatureOutputName" id="setTemperatureOutputId">{{TargetTemperature}}</output>
    <output name="unitSetTemperatureOutputName" id="unitSet">°C</output>
   </h2>
    
@@ -34,21 +39,19 @@
 
    </center>
         
-   <script type="text/javascript">
+        <script type="text/javascript">
    
-   function setTemperatureFunction(){
-      document.getElementById("setTemperatureOutputId").value =   document.getElementById("setInputId").value;
-      //
-      document.alert("Call function");
-      //
-      //
-      //
-      document.body.innerHTML += '<form id="temperatureForm" action="http://localhost:3006/temperature" method="post"><input type="hidden" name="temperature1" value='+document.getElementById("setTemperatureOutputId").value+'></form>';
-      document.getElementById("temperatureForm").submit();
-      //
-   }
+        function setTemperatureFunction(){
+
+           //document.getElementById("setTemperatureOutputId").value =   document.getElementById("setInputId").value;
+
+           //document.body.innerHTML += '<form id="temperatureForm" action="http://localhost:3006/setTemperature" method="post"><input type="submit" name="temperature1" value='+document.getElementById("setTemperatureOutputId").value+'></form>';
+        document.getElementById("temperature1").value =  document.getElementById("setInputId").value;  
+        document.getElementById("temperatureForm").submit();
+      
+         }
    
-   </script>
+        </script>
         
         
 <!--script type="text/javascript">

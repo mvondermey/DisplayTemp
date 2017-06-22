@@ -47,7 +47,7 @@ input[type=range] {
     /*fix for FF unable to apply focus style bug */
     border: 1px solid white;
     /*required for proper track sizing in FF*/
-    width: ;
+
 }
 input[type=range]::-webkit-slider-runnable-track {
     width: 300px;
