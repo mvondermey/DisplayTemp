@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="mystyle.css">
+    </head>
+    <body >
+        
+        <p id="demo"></p>
+        
+     <section>
+    
+    <center>
+         
+     <div class="boxed">
+       
+     <h2>Wifi configuration</h2>
+           
+    <select id="mySelect" size="8" onChange="doSelectWifi(this.value)">        
+    </select>
+    
+    </center>
+          
+    </section>
+        
+    <script type="text/javascript">
+    //
+    //document.getElementById("demo").innerHTML = "Test";
+    //
+    var x = document.getElementById("mySelect");
+    //document.getElementById("demo").innerHTML = 'Tes2';
+    var mywifi = MYWIFI;
+    var myip = "MYIP";
+    //document.getElementById("demo").innerHTML = 'Tes3';
+    var myObj = JSON.stringify(mywifi);
+    //document.getElementById("demo").innerHTML = 'Tes1';
+    //
+    var myObj2 = JSON.parse(myObj);
+    var txt = "<table border='1'>";
+    //
+    for (y in myObj2) {
+        //if (myObj2[y].essid){ // Linux
+        if (myObj2[y].ssid){
+                var option = document.createElement("option");
+    //option.text = myObj2[y].essid; // Linux
+    option.text = myObj2[y].ssid;
+    x.add(option, x[2]);
+    //
+         txt += "<tr><td>" + myObj2[y].essid + "</td></tr>";
+     }
+    }
+    txt += "</table>" ;
+    //document.getElementById("demo").innerHTML = txt;
+    //
+    //
+
+ function doSelectWifi(value){
+    WinId = window.open('','_parent','width=100,height=100');
+    if (!WinId.opener) WinId.opener = self;
+    Text = '<form ';
+    Text += 'action="http://MYIP:3006/login" method="post">';
+    Text += 'Password for '+value+' <input type="password" name="WifiPassword" id="WifiPassword" >';
+    Text += '<input type="hidden" value="'+value+'" name="WifiSSID" id="WifiSSID" >';
+    //Text += '<input type="hidden" value=value name="WifiSSID" id="WifiSSID" />'    ';
+    Text += '<\/form>';
+    WinId.document.open();
+    WinId.document.write(Text);
+    WinId.document.close();
+}
+ 
+
+
+    
+</script>
+        
+    </body>
+</html>

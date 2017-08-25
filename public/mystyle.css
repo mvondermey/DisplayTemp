@@ -1,0 +1,204 @@
+.thermometer {
+    float: left;
+    width: 10%;
+}
+.thermometer img {
+    width: 100%;
+    height: auto;
+}
+
+.settings {
+    float: left;
+    width: 10%;
+}
+.settings img {
+    width: 100%;
+    height: auto;
+}
+
+.TemperatureSelection {
+    float: left;
+    width: 90%;
+}
+
+.chart {
+    display: inline-block;
+    width: 50%;
+    margin-right: 3px;
+}
+
+h1 {
+    color: #577777;
+    font-family: 'Trocchi', serif;
+    font-size: 45px;
+    font-weight: normal;
+    line-height: 48px;
+    margin: 0;
+}
+h2 {
+    color: #7C795D;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 14px;
+    font-weight: 100;
+    line-height: 25px;
+    margin: 0 0 10px;
+}
+.subheader {
+    font-size: 26px;
+    font-weight: 300;
+    color: #FFCC66;
+    margin: 0 0 24px;
+}
+p {
+    color: #4C4A37;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 18px;
+    line-height: 32px;
+    margin: 0 0 24px;
+}
+a {
+    color: #FF9900;
+    background: #FFF4A3;
+    text-decoration: none;
+}
+a:hover {
+    color: #FFCC66;
+}
+body {
+    padding: 30px;
+}
+.boxed {
+    border: 2px solid green;
+    height:220px;
+    width:400px;
+    border:1px solid #F67;
+}
+input[type=range] {
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+    /*fix for FF unable to apply focus style bug */
+    border: 1px solid white;
+    /*required for proper track sizing in FF*/
+
+}
+input[type=range]::-webkit-slider-runnable-track {
+    width: 300px;
+    height: 5px;
+    background: #DDD;
+    border: none;
+    border-radius: 3px;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+    margin-top: -4px;
+}
+input[type=range]:focus {
+    outline: none;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+    background: #CCC;
+}
+input[type=range]::-moz-range-track {
+    width: 300px;
+    height: 5px;
+    background: #DDD;
+    border: none;
+    border-radius: 3px;
+}
+input[type=range]::-moz-range-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}
+/*hide the outline behind the border*/
+input[type=range]:-moz-focusring {
+    outline: 1px solid white;
+    outline-offset: -1px;
+}
+input[type=range]::-ms-track {
+    width: 300px;
+    height: 5px;
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+    /*remove default tick marks*/
+    color: transparent;
+}
+input[type=range]::-ms-fill-lower {
+    background: #777;
+    border-radius: 10px;
+}
+input[type=range]::-ms-fill-upper {
+    background: #DDD;
+    border-radius: 10px;
+}
+input[type=range]::-ms-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}
+input[type=range]:focus::-ms-fill-lower {
+    background: #888;
+}
+input[type=range]:focus::-ms-fill-upper {
+    background: #CCC;
+}
+
+section {
+    background: lightgoldenrodyellow;
+    color: white;
+    border-radius: 1em;
+    padding: 1em;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+.button_example {
+    border: 4px solid #26759E;
+    -webkit-box-shadow: #878787 0px 2px 2px;
+    -moz-box-shadow: #878787 0px 2px 2px;
+    box-shadow: #878787 0px 2px 2px;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 23px;
+    font-size: 13px;
+    font-family: arial, helvetica, sans-serif;
+    padding: 10px 20px 10px 20px;
+    text-decoration: none;
+    display: inline-block;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    color: #FFFFFF;
+    background-color: #3093C7;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#3093C7), to(#1C5A85));
+    background-image: -webkit-linear-gradient(top, #3093C7, #1C5A85);
+    background-image: -moz-linear-gradient(top, #3093C7, #1C5A85);
+    background-image: -ms-linear-gradient(top, #3093C7, #1C5A85);
+    background-image: -o-linear-gradient(top, #3093C7, #1C5A85);
+    background-image: linear-gradient(to bottom, #3093C7, #1C5A85);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#3093C7, endColorstr=#1C5A85);
+}
+.button_example:hover {
+    border: 4px solid #26759E;
+    background-color: #26759E;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#26759E), to(#133D5B));
+    background-image: -webkit-linear-gradient(top, #26759E, #133D5B);
+    background-image: -moz-linear-gradient(top, #26759E, #133D5B);
+    background-image: -ms-linear-gradient(top, #26759E, #133D5B);
+    background-image: -o-linear-gradient(top, #26759E, #133D5B);
+    background-image: linear-gradient(to bottom, #26759E, #133D5B);
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0,startColorstr=#26759E, endColorstr=#133D5B);
+}

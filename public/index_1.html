@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+<link href="mystyle.css" rel="stylesheet" type="text/css"/>
+
+<body >
+    
+    <p id="demo"></p>
+  
+    <iframe width="0" height="0" name="dummyframe" id="dummyframe"></iframe>
+    
+    <form id="temperatureForm" target="dummyframe" method="post"><input type="hidden" name="temperature1" id="temperature1" value="101">
+    </form>
+    
+    <section>
+        
+   <div class="boxed">
+   
+   <div class="main">
+
+   <div class="TemperatureSelection" >
+       
+   <h2>
+    <output name="textCurrentTemperatureOutputName" id="textCurrent">Current Temperature</output>
+    <output name="currentTemperatureOutputName" id="currentTemperatureOutputId">{{CurrentTemperature}}</output>
+    <output name="unitCurrentTemperatureOutputName" id="unitCurrent">°C</output>
+   </h2>
+        
+   <input type="range" name="setTemperatureInputName" id="setInputId" value="{{TargetTemperature}}" min="10" max="30" onInput="setTemperatureOutputId.value=setInputId.value;setTemperatureFunction();">
+   <br><br>
+ 
+  <h2>
+   <output name="textSetTemperatureOutputName" id="textSet">Temperature to set </output>
+   <output name="setTemperatureOutputName" id="setTemperatureOutputId">{{TargetTemperature}}</output>
+   <output name="unitSetTemperatureOutputName" id="unitSet">°C</output>
+  </h2>
+   
+   </div>
+   
+    <div class="thermometer" id="thermometer" >
+        <img src="Thermometer.png"/>
+    </div>
+ 
+    <div class="settings" id="thermometer" >
+        <img src="settings.png"/>
+    </div>
+       
+   </div>
+
+   <!-- div class="chart" >
+     <a class="button_example" href="wifi.html">Wifi Networks</a>
+    </div>
+       
+</div!-->
+   
+        
+        <script type="text/javascript">
+   
+        function setTemperatureFunction(){
+
+           //document.getElementById("setTemperatureOutputId").value =   document.getElementById("setInputId").value;
+
+           //document.body.innerHTML += '<form id="temperatureForm" action="http://localhost:3006/setTemperature" method="post"><input type="submit" name="temperature1" value='+document.getElementById("setTemperatureOutputId").value+'></form>';
+        document.getElementById("temperature1").value =  document.getElementById("setInputId").value;  
+        document.getElementById("temperatureForm").submit();
+      
+         }
+   
+        </script>
+        
+        
+<!--script type="text/javascript">
+
+var dataArray = [3, 13, 23, 33];
+ 
+ var Text = '<form ';
+ Text += 'action="http://127.0.0.1:3003" method="get" id="MyNetwork" name="MyNetwork">';
+ Text += '<\/form>';
+ 
+ document.getElementById("demo").innerHTML = Text;
+ document.forms["MyNetwork"].submit();
+ 
+var svg = d3.select('#chart');
+
+svg.selectAll("div")
+  .data(dataArray)
+  .enter()
+  .append("div")
+  .style("height", (d)=> d + "px");
+   
+    
+</script!-->
+
+    </section>
+   
+</body>
+
