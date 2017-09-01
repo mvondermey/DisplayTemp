@@ -26,14 +26,15 @@ var app6 = express();
 var app7 = express();
 var port7 = 3700;
 //
-    console.log("Chat Server running on port="+port7);
+console.log("Chat Server running on port="+port7);
 
-//
+// Create Chat Server
 var io = require('socket.io').listen(app7.listen(port7),function(){
     console.log("Chat Server running on port="+port7);
 }
-        );
+);
 io.sockets.on('connection', function (socket) {
+    console.log('connection');
     socket.emit('message', { message: 'welcome to the chat' });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
@@ -42,6 +43,14 @@ io.sockets.on('connection', function (socket) {
 app7.get("/", function(req, res){
     res.send("Chat running!");
 });
+//
+var ioClient = require('socket.io-client');
+var socketClient = ioClient.connect('http://18.194.0.108:3700');
+// Add a connect listener
+socketClient.on('connect', function (socket) {
+    console.log('Connected!');
+});
+socketClient.emit('CH01', 'me', 'test msg');
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
