@@ -35,7 +35,7 @@ var io = require('socket.io').listen(app7.listen(port7),function(){
 );
 io.sockets.on('connection', function (socket) {
     console.log('connection');
-    socket.emit('message', { message: 'welcome to the chat' });
+    socket.emit('message', 'server', { message: 'welcome to the chat' });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
@@ -50,7 +50,12 @@ var socketClient = ioClient.connect('http://18.194.0.108:3700');
 socketClient.on('connect', function (socket) {
     console.log('Connected!');
 });
-socketClient.emit('CH01', 'me', 'test msg');
+//
+  socketClient.on('message', function (from, msg) {
+    console.log('message', from, ' saying ', msg);
+  });
+//
+socketClient.emit('message', 'me', 'test msg');
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
