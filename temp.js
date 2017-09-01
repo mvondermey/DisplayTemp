@@ -23,6 +23,25 @@ var app4 = express();
 var app5 = express();
 var app6 = express();
 //
+var app7 = express();
+var port7 = 3700;
+//
+    console.log("Chat Server running on port="+port7);
+
+//
+var io = require('socket.io').listen(app7.listen(port7),function(){
+    console.log("Chat Server running on port="+port7);
+}
+        );
+io.sockets.on('connection', function (socket) {
+    socket.emit('message', { message: 'welcome to the chat' });
+    socket.on('send', function (data) {
+        io.sockets.emit('message', data);
+    });
+});
+app7.get("/", function(req, res){
+    res.send("Chat running!");
+});
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
