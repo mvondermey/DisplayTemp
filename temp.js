@@ -41,7 +41,7 @@ var io = require('socket.io').listen(app7.listen(port7),function(){
 );
 io.sockets.on('connection', function (socket) {
     console.log('connection');
-    socket.emit('message', 'server', { message: 'welcome to the chat' });
+    socket.emit('message', id, { message: 'welcome to the chat' });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
