@@ -16,6 +16,12 @@ wifi.init({
     iface : null // network interface, choose a random wifi interface if set to null 
 });
 //
+const crypto = require("crypto");
+//
+const id = crypto.randomBytes(16).toString("hex");
+//
+console.log('id='+id);
+//
 var app = express();
 var app2 = express();
 var app3 = express();
