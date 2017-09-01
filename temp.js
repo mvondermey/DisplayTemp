@@ -41,11 +41,17 @@ var io = require('socket.io').listen(app7.listen(port7),function(){
 );
 io.sockets.on('connection', function (socket) {
     console.log('connection');
+    socket.on('message', function (from, msg) {
+        console.log('message', from, ' saying ', msg);
+    });
     socket.emit('message', id, { message: 'welcome to the chat' });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
 });
+//
+
+//
 app7.get("/", function(req, res){
     res.send("Chat running!");
 });
@@ -61,7 +67,7 @@ socketClient.on('connect', function (socket) {
     console.log('message', from, ' saying ', msg);
   });
 //
-socketClient.emit('message', 'me', 'test msg');
+socketClient.emit('message', id, 'test msg');
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
