@@ -7,6 +7,7 @@ var network = require('network');
 var wifi = require('node-wifi'); //Windows
 var bodyParser = require("body-parser");
 var jsonfile = require('jsonfile');
+const sqlite3 = require('sqlite3').verbose();
 //
 var file = 'data.json';
 //
@@ -16,11 +17,43 @@ wifi.init({
     iface : null // network interface, choose a random wifi interface if set to null 
 });
 //
-const crypto = require("crypto");
+let db = new sqlite3.Database('data.db', (err) => {
+  if (err) {
+    return console.error(err.message);
+  }
+  console.log('Connected to the SQlite database.');
+});
 //
-const id = crypto.randomBytes(16).toString("hex");
+// Query ID
 //
-console.log('id='+id);
+    const MyID = 0;
+    let sql = `SELECT value FROM CONFIGURATION WHERE field=ID` ;
+    //
+    db.all(sql, [], (err, rows) => {
+     if (err) {
+      //
+      const crypto = require("crypto");
+     //
+      const id = crypto.randomBytes(16).toString("hex");
+      //
+      console.log("Create table");
+      //
+      let sql2 = `INSERT INTO CONFIGURATION( )
+          VALUES('ID', `+id+` )`;
+      //
+      console.log('SQL2='+sql2);
+      //
+     db.run('CREATE TABLE CONFIGURATION(field text,value text)')
+      .run(sql2)
+  }
+  rows.forEach((row) => {
+    console.log(row.name);
+  });
+});
+//
+
+//
+console.log('id='+MyID);
 //
 var app = express();
 var app2 = express();
@@ -44,7 +77,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('message', function (from, msg) {
         console.log('message', from, ' saying ', msg);
     });
-    socket.emit('message', id, { message: 'welcome to the chat' });
+    socket.emit('message', MyID, { message: 'welcome to the chat' });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
@@ -67,7 +100,7 @@ socketClient.on('connect', function (socket) {
     console.log('message', from, ' saying ', msg);
   });
 //
-socketClient.emit('message', id, 'test msg');
+socketClient.emit('message', MyID, 'test msg');
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
