@@ -17,7 +17,7 @@ wifi.init({
     iface : null // network interface, choose a random wifi interface if set to null 
 });
 //
-let db = new sqlite3.Database('data.db', (err) => {
+var db = new sqlite3.Database('data.db', (err) => {
   if (err) {
     return console.error(err.message);
   }
@@ -26,11 +26,22 @@ let db = new sqlite3.Database('data.db', (err) => {
 //
 // Query ID
 //
-    const MyID = 0;
-    let sql = `SELECT value FROM CONFIGURATION WHERE field=ID` ;
+    let MyID = 0;
+    let sql = `SELECT COUNT(*) AS tableCount FROM sqlite_master WHERE type='table' AND name='CONFIGURATION';` ;
     //
     db.all(sql, [], (err, rows) => {
+      //
      if (err) {
+      //
+        throw err;
+      //
+      }
+      //
+      let tableExist=0;
+      //
+      if ( rows[0].tableCount > 0 ) tableExist = 1;
+      //
+      if( ! tableExist ){
       //
       const crypto = require("crypto");
      //
@@ -38,18 +49,32 @@ let db = new sqlite3.Database('data.db', (err) => {
       //
       console.log("Create table");
       //
-      let sql2 = `INSERT INTO CONFIGURATION( )
-          VALUES('ID', `+id+` )`;
+      let sql2 = `INSERT INTO CONFIGURATION
+          VALUES('ID', '`+id+`' )`;
       //
-      console.log('SQL2='+sql2);
+      //console.log('SQL2='+sql2);
       //
-     db.run('CREATE TABLE CONFIGURATION(field text,value text)')
-      .run(sql2)
-  }
-  rows.forEach((row) => {
-    console.log(row.name);
+      
+    db.serialize(function() { 
+     db.run('CREATE TABLE CONFIGURATION(field text,value text)');
+     db.run(sql2);
+     //
+    });
+   }
+   //
+   sql = `SELECT * FROM CONFIGURATION WHERE field='ID' `;
+   //
+   db.serialize(function() {
+   db.all(sql, (err, rows) => {
+        rows.forEach(function (row) {  
+            console.log("Value "+row.value);  
+        })   
+   });
+   });
+   //
   });
-});
+//
+  //db.close();
 //
 
 //
