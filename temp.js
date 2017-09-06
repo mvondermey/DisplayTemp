@@ -148,7 +148,7 @@ io.sockets.on('connection', function (socket) {
     getMyID( function(myID){
         console.log("My ID="+myID);
         socket.emit('message', myID, { message: 'welcome to the chat' });
-    }
+    });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
