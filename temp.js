@@ -121,10 +121,7 @@ var db = new sqlite3.Database('data.db', (err) => {
     });
  }
 //
-getMyID( function(myID){
-    console.log("My ID="+myID);
-   }
-);
+
 //
 var app = express();
 var app2 = express();
@@ -148,7 +145,10 @@ io.sockets.on('connection', function (socket) {
     socket.on('message', function (from, msg) {
         console.log('message', from, ' saying ', msg);
     });
-    socket.emit('message', myID, { message: 'welcome to the chat' });
+    getMyID( function(myID){
+        console.log("My ID="+myID);
+        socket.emit('message', myID, { message: 'welcome to the chat' });
+    }
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
@@ -170,6 +170,11 @@ socketClient.on('connect', function (socket) {
   socketClient.on('message', function (from, msg) {
     console.log('message', from, ' saying ', msg);
   });
+  getMyID( function(myID){
+    console.log("My ID="+myID);
+      socketClient.emit('message', myID, { message: 'Hi to the chat' });
+   }
+);
 //
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
@@ -216,10 +221,7 @@ wifi.scan(function(err, networks) {
     } else {
         res.send(networks);
     }
-});//
-
-//
-
+});
 //
 });
 //
@@ -236,7 +238,6 @@ app2.post('/',function(req,res){
      });      
     //
 });
-
 //
 app6.post('/login',function(req,res){
   console.log("Inside login");
