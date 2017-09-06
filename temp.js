@@ -24,12 +24,23 @@ var db = new sqlite3.Database('data.db', (err) => {
   console.log('Connected to the SQlite database.');
 });
 //
+ function getMyID(callback)
+    {
+//
 // Query ID
 //
-    let MyID = 0;
+    console.log("Inside getMyID");
+    var MyID = -1;
+    //
+    db.serialize(function() {  
+        //
+        console.log("Inside2 getMyID");
+        //
     let sql = `SELECT COUNT(*) AS tableCount FROM sqlite_master WHERE type='table' AND name='CONFIGURATION';` ;
     //
     db.all(sql, [], (err, rows) => {
+      //
+      console.log("Inside3 getMyID");
       //
      if (err) {
       //
@@ -41,6 +52,8 @@ var db = new sqlite3.Database('data.db', (err) => {
       //
       if ( rows[0].tableCount > 0 ) tableExist = 1;
       //
+      console.log("Table exists "+tableExist);
+      //
       if( ! tableExist ){
       //
       const crypto = require("crypto");
@@ -48,37 +61,70 @@ var db = new sqlite3.Database('data.db', (err) => {
       const id = crypto.randomBytes(16).toString("hex");
       //
       console.log("Create table");
-      //
-      let sql2 = `INSERT INTO CONFIGURATION
+      // 
+     db.run('CREATE TABLE CONFIGURATION(field text,value text)',function(err) {
+        if(err){
+            console.log("err3 ");
+            throw err;
+        } else console.log("Created table");  
+    //
+    let sql2 = `INSERT INTO CONFIGURATION
           VALUES('ID', '`+id+`' )`;
-      //
-      //console.log('SQL2='+sql2);
-      //
-      
-    db.serialize(function() { 
-     db.run('CREATE TABLE CONFIGURATION(field text,value text)');
-     db.run(sql2);
+     db.run(sql2,function(err) {
+         if (err) {
+         console.log("err4 ");
+           throw err;
+        } else{ 
+            console.log("inserted into configuration");
+        sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID' `;
+        db.all(sql3, (err, rows) => {
+        if (err) {
+          console.log("err2 ");
+         throw err;
+      }
+      rows.forEach(function (row) {  
+            console.log("Value "+row.value);
+            MyID=rows[0].value
+            console.log("End of getMyID "+MyID);
+            callback(MyID);
+        });
+      });
+  }
+     });
+ });
      //
-    });
-   }
-   //
-   sql = `SELECT * FROM CONFIGURATION WHERE field='ID' `;
-   //
-   db.serialize(function() {
-   db.all(sql, (err, rows) => {
-        rows.forEach(function (row) {  
-            console.log("Value "+row.value);  
-        })   
+   } else {
+       //
+       console.log("Tables exists ");
+        sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID' `;
+        db.all(sql3, (err, rows) => {
+        if (err) {
+          console.log("err2 ");
+         throw err;
+      }
+      rows.forEach(function (row) {  
+            console.log("Value "+row.value);
+            MyID=rows[0].value
+            console.log("End of getMyID "+MyID);
+            callback(MyID);
+        });   
    });
+   }   
+   //
    });
    //
-  });
 //
   //db.close();
 //
 
+    //
+    });
+ }
 //
-console.log('id='+MyID);
+getMyID( function(myID){
+    console.log("My ID="+myID);
+   }
+);
 //
 var app = express();
 var app2 = express();
@@ -102,7 +148,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('message', function (from, msg) {
         console.log('message', from, ' saying ', msg);
     });
-    socket.emit('message', MyID, { message: 'welcome to the chat' });
+    socket.emit('message', myID, { message: 'welcome to the chat' });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
@@ -125,7 +171,6 @@ socketClient.on('connect', function (socket) {
     console.log('message', from, ' saying ', msg);
   });
 //
-socketClient.emit('message', MyID, 'test msg');
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
