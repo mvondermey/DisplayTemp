@@ -157,6 +157,7 @@ var io = require('socket.io').listen(app7.listen(port7),function(){
     console.log("Chat Server running on port="+port7);
 }
 );
+//
 io.sockets.on('connection', function (socket) {
     console.log('connection');
     socket.on('message', function (from, msg) {
@@ -165,14 +166,13 @@ io.sockets.on('connection', function (socket) {
     });
     getMyID( function(myID){
         console.log("My ID="+myID);
-        socket.emit('message', myID, { message: 'welcome to the chat' });
+        socket.emit('message', myID, 'welcome to the chat' );
     });
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
 });
 //
-
 //
 app7.get("/", function(req, res){
     res.send("Chat running!");
@@ -191,10 +191,8 @@ socketClient.on('connect', function (socket) {
   //
   getMyID( function(myID){
     console.log("My ID="+myID);
-      socketClient.emit('message', myID, { message: 'Hi to the chat' });
       getLocalDataJson(function(Data){
-        socketClient.emit('message', Data, { message: 'Hi to the chat' });
-
+        socketClient.emit('message', myID, Data);
       });
     });
 //
