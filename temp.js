@@ -26,6 +26,8 @@ var db = new sqlite3.Database('data.db', (err) => {
 //
 function SaveDataDB(from,msg,callback){
  //
+    console.log("SaveDataDB");
+ //
      let sql2 = `INSERT INTO CONFIGURATION
           VALUES('`+from+`', '`+msg+`' )`;
      db.run(sql2,function(err) {
