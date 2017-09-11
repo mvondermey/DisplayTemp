@@ -33,7 +33,7 @@ function SaveDataDB(from,msg,callback){
          console.log("err7 ");
            throw err;
         } else{ 
-            console.log("inserted into configuration");
+            console.log("inserted into configuration "+sql2);
   }
  //
 });
