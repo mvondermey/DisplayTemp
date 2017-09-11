@@ -24,6 +24,21 @@ var db = new sqlite3.Database('data.db', (err) => {
   console.log('Connected to the SQlite database.');
 });
 //
+function SaveDataDB(from,msg,callback){
+ //
+     let sql2 = `INSERT INTO CONFIGURATION
+          VALUES('ID', '`+from+`' )`;
+     db.run(sql2,function(err) {
+         if (err) {
+         console.log("err7 ");
+           throw err;
+        } else{ 
+            console.log("inserted into configuration");
+  }
+ //
+});
+}
+//
  function getMyID(callback)
     {
 //
@@ -144,6 +159,7 @@ io.sockets.on('connection', function (socket) {
     console.log('connection');
     socket.on('message', function (from, msg) {
         console.log('message', from, ' saying ', msg);
+        SaveDataDB(from,msg);
     });
     getMyID( function(myID){
         console.log("My ID="+myID);
@@ -170,11 +186,15 @@ socketClient.on('connect', function (socket) {
   socketClient.on('message', function (from, msg) {
     console.log('message', from, ' saying ', msg);
   });
+  //
   getMyID( function(myID){
     console.log("My ID="+myID);
       socketClient.emit('message', myID, { message: 'Hi to the chat' });
-   }
-);
+      getLocalDataJson(function(Data){
+        socketClient.emit('message', Data, { message: 'Hi to the chat' });
+
+      });
+    });
 //
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
@@ -498,3 +518,24 @@ console.log("Entering");
         });
     });
     }
+    //
+    function getLocalDataJson(callback) {
+    console.log("Entering");
+    return http.get({
+        host: '127.0.0.1',
+        port: 3000,
+        path: '/'
+    }, function(response) {
+        // Continuously update stream with data
+        console.log("Entering2");
+        var body = '';
+        response.on('data', function(d) {
+            console.log("Entering3");
+            body += d;
+        });
+        response.on('end', function() {
+            callback(body);
+        });
+    });
+    }
+    
