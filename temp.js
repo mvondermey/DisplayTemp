@@ -49,8 +49,6 @@ function SaveDataDB(from,msg,callback){
     console.log("Inside getMyID");
     var MyID = -1;
     //
-    db.serialize(function() {  
-        //
         console.log("Inside2 getMyID");
         //
     let sql = `SELECT COUNT(*) AS tableCount FROM sqlite_master WHERE type='table' AND name='CONFIGURATION';` ;
@@ -130,12 +128,6 @@ function SaveDataDB(from,msg,callback){
    //
    });
    //
-//
-  //db.close();
-//
-
-    //
-    });
  }
 //
 
