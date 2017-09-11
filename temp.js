@@ -27,7 +27,7 @@ var db = new sqlite3.Database('data.db', (err) => {
 function SaveDataDB(from,msg,callback){
  //
      let sql2 = `INSERT INTO CONFIGURATION
-          VALUES('ID', '`+from+`' )`;
+          VALUES('`+from+`', '`+msg+`' )`;
      db.run(sql2,function(err) {
          if (err) {
          console.log("err7 ");
