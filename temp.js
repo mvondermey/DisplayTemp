@@ -47,10 +47,10 @@ function SaveDataDB(from,msg,callback){
 // Query ID
 //
     console.log("Inside getMyID");
-    var MyID = -1;
+    MyID = -1;
     //
-        console.log("Inside2 getMyID");
-        //
+    console.log("Inside2 getMyID");
+    //
     let sql = `SELECT COUNT(*) AS tableCount FROM sqlite_master WHERE type='table' AND name='CONFIGURATION';` ;
     //
     db.all(sql, [], (err, rows) => {
@@ -91,25 +91,11 @@ function SaveDataDB(from,msg,callback){
            throw err;
         } else{ 
             console.log("inserted into configuration");
-        sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID' `;
-        db.all(sql3, (err, rows) => {
-        if (err) {
-          console.log("err2 ");
-         throw err;
-      }
-      rows.forEach(function (row) {  
-            console.log("Value "+row.value);
-            MyID=rows[0].value
-            console.log("End of getMyID "+MyID);
-            callback(MyID);
-        });
+        }
       });
-  }
      });
- });
-     //
-   //
-   }
+    }
+    });
    //
    return function(){
             //
