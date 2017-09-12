@@ -168,7 +168,7 @@ socketClient.on('connect', function (socket) {
   });
   //
     console.log("My ID="+MyID());
-    socketClient.emit('message', MyID()), Data);
+    socketClient.emit('message', MyID(), Data);
 //
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
