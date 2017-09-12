@@ -145,7 +145,7 @@ io.sockets.on('connection', function (socket) {
         SaveDataDB(from,msg);
     });
     console.log("My ID="+MyID());
-    socket.emit('message', MyID()), 'welcome to the chat' );
+    socket.emit('message', MyID(), 'welcome to the chat' );
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
