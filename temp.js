@@ -41,7 +41,7 @@ function SaveDataDB(from,msg,callback){
 });
 }
 //
- function getMyID(callback)
+ var MyID = (function()
     {
 //
 // Query ID
@@ -108,27 +108,29 @@ function SaveDataDB(from,msg,callback){
      });
  });
      //
-   } else {
+   //
+   }
+   //
+   return function(){
+            //
+            console.log("Tables exists ");
+            sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID' `;
+            db.all(sql3, (err, rows) => {
+                if (err) {
+                    console.log("err2 ");
+                    throw err;
+                }
+                rows.forEach(function (row) {
+                    console.log("Value " + row.value);
+                    myID = rows[0].value
+                    console.log("End of getMyID " + myID);
+                    return myID;
+                });
+            });
        //
-       console.log("Tables exists ");
-        sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID' `;
-        db.all(sql3, (err, rows) => {
-        if (err) {
-          console.log("err2 ");
-         throw err;
-      }
-      rows.forEach(function (row) {  
-            console.log("Value "+row.value);
-            MyID=rows[0].value
-            console.log("End of getMyID "+MyID);
-            callback(MyID);
-        });   
-   });
-   }   
+   }
    //
-   });
-   //
- }
+ })();
 //
 
 //
@@ -156,10 +158,8 @@ io.sockets.on('connection', function (socket) {
         console.log('message', from, ' saying ', msg);
         SaveDataDB(from,msg);
     });
-    getMyID( function(myID){
-        console.log("My ID="+myID);
-        socket.emit('message', myID, 'welcome to the chat' );
-    });
+    console.log("My ID="+MyID());
+    socket.emit('message', MyID()), 'welcome to the chat' );
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
@@ -181,12 +181,8 @@ socketClient.on('connect', function (socket) {
     console.log('message', from, ' saying ', msg);
   });
   //
-  getMyID( function(myID){
-    console.log("My ID="+myID);
-      getLocalDataJson(function(Data){
-        socketClient.emit('message', myID, Data);
-      });
-    });
+    console.log("My ID="+MyID());
+    socketClient.emit('message', MyID()), Data);
 //
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
