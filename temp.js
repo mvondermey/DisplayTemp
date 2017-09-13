@@ -166,7 +166,7 @@ io.sockets.on('connection', function (socket) {
     //
     GetDBID(function(myID){
         socket.emit('message', myID, 'welcome to the chat' );
-    );
+    });
     //
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
