@@ -46,7 +46,6 @@ function GetDBID(){
     //
         console.log("GetDBID ");
           //
-          //
             sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID'; `;
             db.all(sql3, (err, rows) => {
                 if (err) {
@@ -57,7 +56,7 @@ function GetDBID(){
                     console.log("Value " + row.value);
                     myID = rows[0].value
                     console.log("End of getMyID " + myID);
-          
+                    return myID;
                 });
             });
     //
@@ -109,32 +108,20 @@ function CheckIfConfigurationTableExists(Next){
            throw err;
         } else{ 
             console.log("inserted into configuration");
-            Next();
+            return Next();
         }
       });
      });
-    } else Next();
+    } else return Next();
     });   
     //
     console.log("Going out");
     //
 }
 //
- function MyID()
-    {
-//
-// Query ID
-//
-   console.log("Inside getMyID");
-   //
-   var myID=-1;
-   var error=-1;
-   //
-   CheckIfConfigurationTableExists(GetDBID);
-   return myID;
-   //
- };
-//
+
+CheckIfConfigurationTableExists(GetDBID);
+
 
 //
 var app = express();
@@ -161,8 +148,10 @@ io.sockets.on('connection', function (socket) {
         console.log('message', from, ' saying ', msg);
         SaveDataDB(from,msg);
     });
-    //console.log("My ID="+MyID());
-    //socket.emit('message', MyID(), 'welcome to the chat' );
+    console.log("My ID="+GetDBID());
+    socket.emit('message', GetDBID(), 'welcome to the chat' );
+    //CheckIfConfigurationTableExists(GetDBID);
+    //
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
     });
@@ -186,7 +175,7 @@ socketClient.on('connect', function (socket) {
   //
     //console.log("My ID="+MyID());
     getLocalDataJson(function(Data){
-        socketClient.emit('message', MyID(), Data);
+        socketClient.emit('message', GetDBID(), Data);
     });
 //
 //
