@@ -42,9 +42,16 @@ function SaveDataDB(from,msg,callback){
 });
 }
 //
-function GetDBID(){
+function ReturnID(data){
     //
-    var myID = -1;
+    console.log("ID "+data);
+    return data;
+    //
+}
+//
+function GetDBID(callback){
+    //
+    myID = -10;
         console.log("GetDBID ");
           //
             sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID'; `;
@@ -57,11 +64,12 @@ function GetDBID(){
                     console.log("Value " + row.value);
                     myID = rows[0].value
                     console.log("End of getMyID " + myID);
-                   
+                    callback(myID);  
                 });
             });
     //
-    return myID;
+
+   console.log("GetDBID.out");
     //
 }
 //
@@ -123,7 +131,7 @@ function CheckIfConfigurationTableExists(Next){
 }
 //
 
-CheckIfConfigurationTableExists(GetDBID);
+//CheckIfConfigurationTableExists(GetDBID);
 
 
 //
@@ -151,9 +159,14 @@ io.sockets.on('connection', function (socket) {
         console.log('message', from, ' saying ', msg);
         SaveDataDB(from,msg);
     });
-    console.log("My ID="+GetDBID());
-    socket.emit('message', GetDBID(), 'welcome to the chat' );
-    //CheckIfConfigurationTableExists(GetDBID);
+    //console.log("My ID="+GetDBID(ReturnID));
+    GetDBID(function(myID){
+        console.log("My ID="+myID);
+    });
+    //
+    GetDBID(function(myID){
+        socket.emit('message', myID, 'welcome to the chat' );
+    );
     //
     socket.on('send', function (data) {
         io.sockets.emit('message', data);
@@ -176,9 +189,11 @@ socketClient.on('connect', function (socket) {
     console.log('message', from, ' saying ', msg);
   });
   //
-    //console.log("My ID="+MyID());
     getLocalDataJson(function(Data){
-        socketClient.emit('message', GetDBID(), Data);
+                GetDBID(function(myID){
+                console.log("My ID="+myID);            
+                socketClient.emit('message', myID, Data);
+        });
     });
 //
 //
