@@ -44,6 +44,7 @@ function SaveDataDB(from,msg,callback){
 //
 function GetDBID(){
     //
+    var myID = -1;
         console.log("GetDBID ");
           //
             sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID'; `;
@@ -56,9 +57,11 @@ function GetDBID(){
                     console.log("Value " + row.value);
                     myID = rows[0].value
                     console.log("End of getMyID " + myID);
-                    return myID;
+                   
                 });
             });
+    //
+    return myID;
     //
 }
 //
