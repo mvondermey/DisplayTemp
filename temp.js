@@ -13,6 +13,7 @@ var file = 'data.json';
 //
 // Initialize wifi module 
 // Absolutely necessary even to set interface to null 
+//
 wifi.init({
     iface : null // network interface, choose a random wifi interface if set to null 
 });
@@ -47,11 +48,12 @@ function SaveDataDB(from,msg,callback){
 // Query ID
 //
     console.log("Inside getMyID");
-    MyID = -1;
-    //
-    console.log("Inside2 getMyID");
+    var myID = -1;
+    var tableExist=0;
     //
     let sql = `SELECT COUNT(*) AS tableCount FROM sqlite_master WHERE type='table' AND name='CONFIGURATION';` ;
+    //
+    console.log(sql);
     //
     db.all(sql, [], (err, rows) => {
       //
@@ -59,15 +61,14 @@ function SaveDataDB(from,msg,callback){
       //
      if (err) {
       //
+        console.log("Err1");
         throw err;
       //
       }
       //
-      let tableExist=0;
-      //
       if ( rows[0].tableCount > 0 ) tableExist = 1;
       //
-      console.log("Table exists "+tableExist);
+      console.log("*Table exists "+tableExist);
       //
       if( ! tableExist ){
       //
@@ -99,8 +100,12 @@ function SaveDataDB(from,msg,callback){
    //
    return function(){
             //
-            console.log("Tables exists ");
-            sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID' `;
+            console.log("Return function");
+            //
+            if (tableExist==1) {
+            //
+            console.log("Query ID "+tableExist);
+            sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID'; `;
             db.all(sql3, (err, rows) => {
                 if (err) {
                     console.log("err2 ");
@@ -110,11 +115,13 @@ function SaveDataDB(from,msg,callback){
                     console.log("Value " + row.value);
                     myID = rows[0].value
                     console.log("End of getMyID " + myID);
-                    return myID;
                 });
             });
+        } 
        //
+       return myID;
    }
+   //
    //
  })();
 //
@@ -168,7 +175,9 @@ socketClient.on('connect', function (socket) {
   });
   //
     console.log("My ID="+MyID());
-    socketClient.emit('message', MyID(), Data);
+    getLocalDataJson(function(Data){
+        socketClient.emit('message', MyID(), Data);
+    });
 //
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
