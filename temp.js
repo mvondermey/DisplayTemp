@@ -18,12 +18,31 @@ wifi.init({
     iface : null // network interface, choose a random wifi interface if set to null 
 });
 //
+  var Singleton = (function () {
+    var instance;
+ 
+    function createInstance() {
+        var object = new Object("I am the instance");
+        return object;
+    }
+ 
+    return {
+        getInstance: function () {
+            if (!instance) {
+                instance = createInstance();
+            }
+            return instance;
+        }
+    };
+})();
+//
 var db = new sqlite3.Database('data.db', (err) => {
   if (err) {
     return console.error(err.message);
   }
-  console.log('Connected to the SQlite database.');
-});
+      console.log("Done");
+      console.log('Connected to the SQlite database.');
+  });
 //
 function SaveDataDB(from,msg,callback){
  //
@@ -54,6 +73,7 @@ function GetDBID(callback){
     myID = -10;
         console.log("GetDBID ");
           //
+          //
             sql3 = `SELECT * FROM CONFIGURATION WHERE field='ID'; `;
             db.all(sql3, (err, rows) => {
                 if (err) {
@@ -73,62 +93,7 @@ function GetDBID(callback){
     //
 }
 //
-function CheckIfConfigurationTableExists(Next){
-    //
-    var tableExist=0;
-    //
-    
-    let sql = `SELECT COUNT(*) AS tableCount FROM sqlite_master WHERE type='table' AND name='CONFIGURATION';` ;
-    //
-    console.log(sql);
-    //
-    db.all(sql, [], (err, rows) => {
-      //
-      console.log("Inside3 getMyID");
-      //
-     if (err) {
-      //
-        console.log("Err1");
-        throw err;
-      //
-      }
-      //
-      if ( rows[0].tableCount > 0 ) tableExist = 1;
-      //
-      console.log("*Table exists "+tableExist);
-      //
-      if( ! tableExist ){
-      //
-      const crypto = require("crypto");
-     //
-      const id = crypto.randomBytes(16).toString("hex");
-      //
-      console.log("Create table");
-      // 
-     db.run('CREATE TABLE CONFIGURATION(field text,value text)',function(err) {
-        if(err){
-            console.log("err3 ");
-            throw err;
-        } else console.log("Created table");  
-    //
-    let sql2 = `INSERT INTO CONFIGURATION
-          VALUES('ID', '`+id+`' )`;
-     db.run(sql2,function(err) {
-         if (err) {
-         console.log("err4 ");
-           throw err;
-        } else{ 
-            console.log("inserted into configuration");
-            return Next();
-        }
-      });
-     });
-    } else return Next();
-    });   
-    //
-    console.log("Going out");
-    //
-}
+
 //
 
 //CheckIfConfigurationTableExists(GetDBID);
