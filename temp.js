@@ -174,6 +174,12 @@ app3.use(bodyParser.json());
 //(app8.use(bodyParser.json());
 //
 app8.get('/', function (req, res) {
+   //
+    res.sendFile('./public/Chart.html', {root: './'});
+    //
+});
+//
+app8.get('/Data', function (req, res) {
     //
      var max = 30;
      var min = 10;
