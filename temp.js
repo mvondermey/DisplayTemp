@@ -172,7 +172,7 @@ app6.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({ extended: false }));
 app3.use(bodyParser.json());
 //(app8.use(bodyParser.json());
-app.use(express.static('./'));
+app8.use(express.static('./'));
 //
 app8.get('/', function (req, res) {
    //
