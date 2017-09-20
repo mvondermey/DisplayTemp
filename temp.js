@@ -179,7 +179,7 @@ app8.get('/', function (req, res) {
     //
 });
 //
-app8.get('/Data', function (req, res) {
+app8.get('/data', function (req, res) {
     //
      var max = 30;
      var min = 10;
