@@ -14,7 +14,13 @@ and open the template in the editor.
     <body>
         <div>TODO write content</div>
         <script type="text/javascript">
-            var mywifi = DBDATA;
+            var mydbdata = DBDATA;
+            zingchart.render({ 
+            id : 'myChart', 
+             data : mydbdata, 
+            height: 400, 
+            width: 600 
+});
         </script>
     </body>
 </html>
