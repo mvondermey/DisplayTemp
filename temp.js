@@ -184,11 +184,12 @@ app8.get('/', function (req, res) {
                     console.log("err2 ");
                     throw err;
                 }
-                rows.forEach(function (row) {
-                    console.log("Value " + row.value);
-                    myID = rows[0].value
-                    res.json({"MyData" : rows[0].value}); 
-                });
+                res.json(rows);
+                //rows.forEach(function (row) {
+                //    console.log("Value " + row.value);
+                //    myID = rows[0].value
+                //    res.json({"MyData" : rows[1].value}); 
+                //});
             });
      //
      //res.json({"Data" : Math.random() * (max - min) + min});
