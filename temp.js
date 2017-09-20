@@ -172,10 +172,28 @@ app6.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({ extended: false }));
 app3.use(bodyParser.json());
 //(app8.use(bodyParser.json());
+app.use(express.static('./'));
 //
 app8.get('/', function (req, res) {
    //
-    res.sendFile('./public/Chart.html', {root: './'});
+    //res.sendFile('./public/Chart.html', {root: './'});
+    fs.readFile(__dirname + '/public/Chart.html' , function(err,data)
+        {
+    if(err)
+        console.log(err);
+    else
+        var msg = data.toString();
+        //
+        getDBDataJson ( function (DBData)
+        {
+        console.log(DBData);
+        var msg2 = msg.replace(/DBDATA/,DBData);
+        //
+        res.send(msg2);
+        //
+        });
+    });
+    
     //
 });
 //
@@ -543,3 +561,20 @@ console.log("Entering");
     });
     }
     
+    function getDBDataJson(callback) {
+    console.log("Entering");
+    return http.get({
+        host: '127.0.0.1',
+        port: 3008,
+        path: '/data'
+    }, function(response) {
+        // Continuously update stream with data
+        var body = '';
+        response.on('data', function(d) {
+            body += d;
+        });
+        response.on('end', function() {
+            callback(body);
+        });
+    });
+    }
