@@ -191,7 +191,7 @@ app8.get('/', function (req, res) {
                 });
             });
      //
-     res.json({"Data" : Math.random() * (max - min) + min});
+     //res.json({"Data" : Math.random() * (max - min) + min});
 });
 //
 //
