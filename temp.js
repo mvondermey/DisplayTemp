@@ -110,6 +110,8 @@ var app6 = express();
 var app7 = express();
 var port7 = 3700;
 //
+var app8 = express();
+//
 console.log("Chat Server running on port="+port7);
 
 // Create Chat Server
@@ -169,6 +171,15 @@ app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({ extended: false }));
 app3.use(bodyParser.json());
+app8.use(bodyParser.json());
+//
+app8.get('/', function (req, res) {
+    //
+     var max = 30;
+     var min = 10;
+     res.json({"Data" : Math.random() * (max - min) + min});
+});
+//
 //
 app.get('/', function (req, res) {
     //
@@ -384,7 +395,7 @@ app2.get('/', function (req, res) {
 });
 
 app2.listen(3001, function () {
-  console.log('Example app2 listening on port 3001!');
+  console.log('Example app2 listening on port 3001!. Local Webpage');
 });
 
 app3.listen(3003, function () {
@@ -401,6 +412,10 @@ app5.listen(3005, function () {
 //
 app6.listen(3006, function () {
   console.log('Example app6 listening on port 3006!. Set Network devices');
+});
+//
+app8.listen(3008, function () {
+  console.log('app8 listening on port 3008!. Return DB stored data');
 });
 //
 function getWifiList(callback) {
