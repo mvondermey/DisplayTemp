@@ -154,12 +154,15 @@ socketClient.on('connect', function (socket) {
     console.log('message', from, ' saying ', msg);
   });
   //
+  (function loop() {
     getLocalDataJson(function(Data){
                 GetDBID(function(myID){
                 console.log("My ID="+myID);            
                 socketClient.emit('message', myID, Data);
         });
     });
+    setTimeout(loop, 5000);
+  }());
 //
 //
 app6.use(bodyParser.urlencoded({ extended: false }));
