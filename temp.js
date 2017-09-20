@@ -171,7 +171,7 @@ app6.use(bodyParser.urlencoded({ extended: false }));
 app6.use(bodyParser.json());
 app2.use(bodyParser.urlencoded({ extended: false }));
 app3.use(bodyParser.json());
-app8.use(bodyParser.json());
+//(app8.use(bodyParser.json());
 //
 app8.get('/', function (req, res) {
     //
