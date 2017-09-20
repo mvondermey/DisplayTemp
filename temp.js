@@ -177,6 +177,20 @@ app8.get('/', function (req, res) {
     //
      var max = 30;
      var min = 10;
+     //
+            sql3 = `SELECT * FROM CONFIGURATION; `;
+            db.all(sql3, (err, rows) => {
+                if (err) {
+                    console.log("err2 ");
+                    throw err;
+                }
+                rows.forEach(function (row) {
+                    console.log("Value " + row.value);
+                    myID = rows[0].value
+                    res.json({"Data" : rows[0].value}); 
+                });
+            });
+     //
      res.json({"Data" : Math.random() * (max - min) + min});
 });
 //
