@@ -216,7 +216,7 @@ app8.get('/data', function (req, res) {
                 //console.log("Lenght "+aData.length);
                 //
                 for (s of jsonObj) {
-                    console.log("Data "+JSON.stringify(s.field));
+                    console.log("Data "+JSON.stringify(s.value));
                 }
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
