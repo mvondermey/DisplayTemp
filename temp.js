@@ -208,7 +208,7 @@ app8.get('/temperatures', function (req, res) {
                     console.log("err2 ");
                     throw err;
                 }
-                var aData = JSON.stringify(rows[0]);
+                var aData = JSON.stringify(rows[1].value);
                 res.send(aData);
                 //
                 var jsonObj = JSON.parse(aData);
