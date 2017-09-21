@@ -208,7 +208,7 @@ app8.get('/data', function (req, res) {
                     console.log("err2 ");
                     throw err;
                 }
-                var aData = JSON.parse(rows);
+                var aData = JSON.stringify(rows);
                 res.send(aData);
                 //
                 for(var n = 0; n < aData['rows'].length; n++){
