@@ -215,12 +215,13 @@ app8.get('/temperatures', function (req, res) {
                 //
                 //console.log("Lenght "+aData.length);
                 //
+                var temperatures = "";
                 for (s of jsonObj) {
                     console.log("Data1 "+JSON.stringify(s.value));
                     var temperature = JSON.parse(JSON.stringify(s.value)).replace(/\\/g, '').substring(1,aData.length-3);
-                    res.send(temperature);
-                    console.log("Data2 "+temperature);
+                    temperatures = temperatures + ","+temeprature 
                 }
+                res.send(temperatures);
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
                 //    myID = rows[0].value
