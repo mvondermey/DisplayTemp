@@ -211,9 +211,11 @@ app8.get('/data', function (req, res) {
                 var aData = JSON.stringify(rows);
                 res.send(aData);
                 //
-                console.log("Lenght "+aData.length);
+                var jsonObj = JSON.parse(aData);
                 //
-                for (s of aData) {
+                //console.log("Lenght "+aData.length);
+                //
+                for (s of jsonObj) {
                     console.log("Data "+s);
                 }
                 //rows.forEach(function (row) {
