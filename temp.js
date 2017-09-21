@@ -208,11 +208,8 @@ app8.get('/temperatures', function (req, res) {
                     console.log("err2 ");
                     throw err;
                 }
-                var aData = JSON.stringify(rows[1].value);
-                aData = aData.replace(/\\/g, '').substring(1,aData.length-3);
-                res.send(aData);
-                //
-                console.log(aData);
+                var aData = JSON.stringify(rows);
+            
                 //
                 var jsonObj = JSON.parse(aData);
                 //
@@ -220,7 +217,8 @@ app8.get('/temperatures', function (req, res) {
                 //
                 for (s of jsonObj) {
                     console.log("Data1 "+JSON.stringify(s.value));
-                    var temperature = JSON.parse(JSON.stringify(s.value)).temperature;
+                    var temperature = JSON.parse(JSON.stringify(s.value)).replace(/\\/g, '').substring(1,aData.length-3);
+                    res.send(temperature);
                     console.log("Data2 "+temperature);
                 }
                 //rows.forEach(function (row) {
