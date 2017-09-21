@@ -208,10 +208,10 @@ app8.get('/data', function (req, res) {
                     console.log("err2 ");
                     throw err;
                 }
-                json aData = JSON.stringify(rows);
+                var aData = JSON.stringify(rows);
                 res.send(aData);
                 //
-                aData.forEach(function(obj) { console.log(obj); });
+                console.length("Lenght "+aData.length());
                 //
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
