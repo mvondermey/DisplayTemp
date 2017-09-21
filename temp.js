@@ -208,7 +208,13 @@ app8.get('/data', function (req, res) {
                     console.log("err2 ");
                     throw err;
                 }
-                res.json(rows);
+                var aData = json(rows);
+                res.send(aData);
+                //
+                for(var n = 0; n < aData['rows'].length; n++){
+                    console.log("row "+aData[n]);
+                }
+                //
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
                 //    myID = rows[0].value
