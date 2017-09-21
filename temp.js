@@ -219,7 +219,7 @@ app8.get('/temperatures', function (req, res) {
                 for (s of jsonObj) {
                     console.log("Data1 "+JSON.stringify(s.value));
                     var temperature = JSON.parse(JSON.stringify(s.value)).replace(/\\/g, '').substring(1,aData.length-3);
-                    temperatures = temperatures + ","+temeprature 
+                    temperatures = temperatures + ","+temperature; 
                 }
                 res.send(temperatures);
                 //rows.forEach(function (row) {
