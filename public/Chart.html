@@ -16,9 +16,20 @@ and open the template in the editor.
         <div id="myChart"></div>
         <script type="text/javascript">
             var mydbdata = DBDATA;
+            var chartData = {
+      type: "bar",  // Specify your chart type here.
+      title: {
+        text: "My First Chart" // Adds a title to your chart
+      },
+      legend: {}, // Creates an interactive legend
+      series: [  // Insert your series data here.
+          { values: [35, 42, 67, 89]},
+          { values: [28, 40, 39, 36]}
+      ]
+    };
             zingchart.render({ 
             id : 'myChart', 
-            data : mydbdata, 
+            data : chartData, 
             height: 400, 
             width: 600 
 });
