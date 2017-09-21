@@ -211,6 +211,8 @@ app8.get('/temperatures', function (req, res) {
                 var aData = JSON.stringify(rows[1].value);
                 res.send(aData);
                 //
+                console.log(aData);
+                //
                 var jsonObj = JSON.parse(aData);
                 //
                 //console.log("Lenght "+aData.length);
