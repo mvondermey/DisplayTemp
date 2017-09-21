@@ -211,7 +211,7 @@ app8.get('/data', function (req, res) {
                 var aData = JSON.stringify(rows);
                 res.send(aData);
                 //
-                console.length("Lenght "+aData.length());
+                console.length("Lenght "+aData.length);
                 //
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
