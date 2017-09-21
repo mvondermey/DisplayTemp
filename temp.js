@@ -209,7 +209,7 @@ app8.get('/temperatures', function (req, res) {
                     throw err;
                 }
                 var aData = JSON.stringify(rows[1].value);
-                aData = aData.replace(/\\/g, '').substring(1,aData.length-1);
+                aData = aData.replace(/\\/g, '').substring(1,aData.length-2);
                 res.send(aData);
                 //
                 console.log(aData);
