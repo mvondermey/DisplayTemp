@@ -216,8 +216,8 @@ app8.get('/data', function (req, res) {
                 //console.log("Lenght "+aData.length);
                 //
                 for (s of jsonObj) {
-                    
-                    console.log("Data "+JSON.stringify(s.value.temperature));
+                    var temperature = JSON.parse(s.value).temperature1;
+                    console.log("Data "+temperature);
                 }
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
