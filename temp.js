@@ -213,6 +213,9 @@ app8.get('/data', function (req, res) {
                 //
                 console.log("Lenght "+aData.length);
                 //
+                for (s of aData) {
+                    console.log("Data "+s);
+                }
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
                 //    myID = rows[0].value
