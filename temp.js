@@ -197,7 +197,7 @@ app8.get('/', function (req, res) {
     //
 });
 //
-app8.get('/data', function (req, res) {
+app8.get('/temperatures', function (req, res) {
     //
      var max = 30;
      var min = 10;
@@ -220,6 +220,30 @@ app8.get('/data', function (req, res) {
                     var temperature = JSON.parse(JSON.stringify(s.value)).temperature;
                     console.log("Data2 "+temperature);
                 }
+                //rows.forEach(function (row) {
+                //    console.log("Value " + row.value);
+                //    myID = rows[0].value
+                //    res.json({"MyData" : rows[1].value}); 
+                //});
+            });
+     //
+     //res.json({"Data" : Math.random() * (max - min) + min});
+});
+//
+app8.get('/data', function (req, res) {
+    //
+     var max = 30;
+     var min = 10;
+     //
+            sql3 = `SELECT * FROM CONFIGURATION; `;
+            db.all(sql3, (err, rows) => {
+                if (err) {
+                    console.log("err2 ");
+                    throw err;
+                }
+                var aData = JSON.stringify(rows);
+                res.send(aData);
+                //
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
                 //    myID = rows[0].value
