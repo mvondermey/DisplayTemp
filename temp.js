@@ -185,10 +185,10 @@ app8.get('/', function (req, res) {
     else
         var msg = data.toString();
         //
-        getDBTemperatureArray ( function (DBData)
+        getDBTemperatureArray ( function (tempArray)
         {
-        console.log(DBData);
-        var msg2 = msg.replace(/DBDATA/,DBData);
+        console.log(tempArray);
+        var msg2 = msg.replace(/DBDATA/,tempArray);
         //
         res.send(msg2);
         //
@@ -243,7 +243,7 @@ app8.get('/data', function (req, res) {
      var max = 30;
      var min = 10;
      //
-            sql3 = `SELECT * FROM CONFIGURATION; `;
+            sql3 = `SELECT * FROM CONFIGURATION where field != 'ID' ; `;
             db.all(sql3, (err, rows) => {
                 if (err) {
                     console.log("err2 ");
@@ -627,7 +627,20 @@ console.log("Entering");
                getDBDataJson ( function (DBData)
         {
              console.log(DBData);
-             callback(DBData);
+             //
+             var jsonObj = JSON.parse(DBData); 
+                var temperatures = "";
+                for (s of jsonObj) {
+                    console.log("Data1 "+JSON.stringify(s.value));
+                    jsonDataObject = JSON.parse(s.value);
+                    console.log("Data2 "+JSON.stringify(jsonDataObject.temperature));
+                    //var temperature = JSON.parse(JSON.stringify(s.value)).replace(/\\/g, '').substring(1,aData.length-3);
+                    var temperature = JSON.stringify(jsonDataObject.temperature);
+                    temperatures = temperature + ","+temperatures; 
+                    console.log(temperatures);
+                }
+             //
+             callback(temperatures);
         //
         });
         //
