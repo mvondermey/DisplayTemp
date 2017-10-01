@@ -147,6 +147,7 @@ app7.get("/", function(req, res){
 //
 var ioClient = require('socket.io-client');
 var socketClient = ioClient.connect('http://18.194.0.108:3700');
+socketClient = ioClient.connect('http://localhost:3700');
 // Add a connect listener
 socketClient.on('connect', function (socket) {
     console.log('Connected!');
@@ -159,7 +160,7 @@ socketClient.on('connect', function (socket) {
   (function loop() {
     getLocalDataJson(function(Data){
                 GetDBID(function(myID){
-                console.log("My ID="+myID);            
+                console.log("My ID="+myID+" Data "+Data);            
                 socketClient.emit('message', myID, Data);
         });
     });
@@ -184,7 +185,7 @@ app8.get('/', function (req, res) {
     else
         var msg = data.toString();
         //
-        getDBDataJson ( function (DBData)
+        getDBTemperatureArray ( function (DBData)
         {
         console.log(DBData);
         var msg2 = msg.replace(/DBDATA/,DBData);
@@ -202,7 +203,7 @@ app8.get('/temperatures', function (req, res) {
      var max = 30;
      var min = 10;
      //
-            sql3 = `SELECT * FROM CONFIGURATION; `;
+            sql3 = `SELECT * FROM CONFIGURATION where field != 'ID' ; `;
             db.all(sql3, (err, rows) => {
                 if (err) {
                     console.log("err2 ");
@@ -218,10 +219,15 @@ app8.get('/temperatures', function (req, res) {
                 var temperatures = "";
                 for (s of jsonObj) {
                     console.log("Data1 "+JSON.stringify(s.value));
-                    var temperature = JSON.parse(JSON.stringify(s.value)).replace(/\\/g, '').substring(1,aData.length-3);
-                    temperatures = temperatures + ","+temperature; 
+                    jsonDataObject = JSON.parse(s.value);
+                    console.log("Data2 "+JSON.stringify(jsonDataObject.temperature));
+                    //var temperature = JSON.parse(JSON.stringify(s.value)).replace(/\\/g, '').substring(1,aData.length-3);
+                    var temperature = JSON.stringify(jsonDataObject.temperature);
+                    temperatures = temperature + ","+temperatures; 
+                    console.log(temperatures);
                 }
                 res.send(temperatures);
+                //
                 //rows.forEach(function (row) {
                 //    console.log("Value " + row.value);
                 //    myID = rows[0].value
@@ -614,4 +620,15 @@ console.log("Entering");
             callback(body);
         });
     });
+    }
+    
+    function getDBTemperatureArray(callback){
+        //
+               getDBDataJson ( function (DBData)
+        {
+             console.log(DBData);
+             callback(DBData);
+        //
+        });
+        //
     }
