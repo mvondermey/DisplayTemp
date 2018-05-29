@@ -4,7 +4,7 @@ var fs = require('fs');
 var http = require('http');
 var network = require('network');
 // var wifi = require('iwlist')('wlan0');
-var wifi = require('node-wifi'); //Windows
+//var wifi = require('node-wifi'); //Windows
 var bodyParser = require("body-parser");
 var jsonfile = require('jsonfile');
 const sqlite3 = require('sqlite3').verbose();
@@ -14,9 +14,7 @@ var file = 'data.json';
 // Initialize wifi module 
 // Absolutely necessary even to set interface to null 
 //
-wifi.init({
-    iface : null // network interface, choose a random wifi interface if set to null 
-});
+
 //
   var Singleton = (function () {
     var instance;
@@ -146,8 +144,8 @@ app7.get("/", function(req, res){
 });
 //
 var ioClient = require('socket.io-client');
-var socketClient = ioClient.connect('http://18.194.0.108:3700');
-socketClient = ioClient.connect('http://localhost:3700');
+var socketClient = ioClient.connect('http://192.168.12.231:3700');
+//socketClient = ioClient.connect('http://localhost:3700');
 // Add a connect listener
 socketClient.on('connect', function (socket) {
     console.log('Connected!');
@@ -288,23 +286,7 @@ app4.get('/', function (req, res) {
 });
 //
 //
-app5.get('/', function (req, res) {
-// Scan networks 
-//
-console.log("Scan wifi networks...");
-//
-//
-wifi.scan(function(err, networks) {
-    if (err) {
-        console.log("Error ...");
-        console.log(err);
-        //res.send(err);
-    } else {
-        res.send(networks);
-    }
-});
-//
-});
+
 //
 app2.post('/',function(req,res){
     //
@@ -320,81 +302,14 @@ app2.post('/',function(req,res){
     //
 });
 //
-app6.post('/login',function(req,res){
-  console.log("Inside login");
-  console.log(req.body);
-  
-  // Connect to a network 
-  wifi.connect({ ssid : req.body.WifiSSID, password : req.body.WifiPassword }, function(err) {
-    if (err) {
-        console.log(err);
-    }
-    else console.log('Connected');
-    //
-  });
-  //
-  var exec = require('child_process').exec;
-  exec('netsh wlan show interface | find /I " ssid" ', function(error, stdout, stderr) {
-        console.log('stdout: ', stdout);
-        var string1 = stdout.toString();
-        var words = string1.replace(/ /g, "").split(":");
-        console.log("length: "+words.length);
-        var ssid = words[1];
-        console.log("Connected to "+ssid);
-        console.log('stderr: ', stderr);
-  if (error !== null) {
-        console.log('exec error: ', error);
-  }
-  });
-  //
-    var request = require('request');
-    //
-    //console.log("After require request");
-    //
-    request('http://localhost:3001/wifi.html', function (error, response, body) {
-    if (!error && response.statusCode == 200) {
-        //console.log("Body ");
-        //console.log(body) // Show the HTML for the Google homepage.
-        res.send(body);
-    } 
-    else console.log(error);
-    //
-})
-//
-});
+
 //
 app.listen(3000, function () {
   console.log('Example app listening on port 3000! Return Temperature');
   
 });
 //
-app2.get('/wifi.html', function (req, res) {
-    //
-    fs.readFile(__dirname + '/public/wifi.html' , function(err,data)
-{
-    if(err)
-        console.log(err);
-    else
-        var msg = data.toString();
-        //
-        getWifiList( function (WifiList)
-        {
-        console.log(WifiList);
-        var msg2 = msg.replace(/MYWIFI/,WifiList);
-        //
-        getIPAddress( function (IPAddress)
-        {
-            console.log(IPAddress);
-            var msg3 = msg2.replace(/MYIP/g,IPAddress);
-            res.send(msg3);
-        }
-        );
-        //
 
-        });
-    });
-//
-});
 //
 app2.use(express.static(__dirname + '/public/images'));
 /*
@@ -488,9 +403,7 @@ app4.listen(3004, function () {
   console.log('Example app4 listening on port 3004!. Return available Network devices');
 });
 
-app5.listen(3005, function () {
-  console.log('Example app5 listening on port 3005!. Return available Wifi devices');
-});
+
 //
 app6.listen(3006, function () {
   console.log('Example app6 listening on port 3006!. Set Network devices');
@@ -500,27 +413,7 @@ app8.listen(3008, function () {
   console.log('app8 listening on port 3008!. Return DB stored data');
 });
 //
-function getWifiList(callback) {
-console.log("Entering");
-    return http.get({
-        port: 3005,
-        path: '/'
-    }, function(response) {
-        // Continuously update stream with data
-        console.log("Entering2");
-        var body = '';
-        response.on('data', function(d) {
-            console.log("Entering3");
-            body += d;
-        });
-        response.on('end', function() {
-        console.log("Entering4");
-        console.log(body);
-    // Data reception is done, do whatever with it!
-            callback(body);
-        });
-    });
-}
+
 //
 function getIPAddress(callback){
     //

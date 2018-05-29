@@ -11,7 +11,7 @@
   "author": "martinvondermey",
   "contributors": [],
   "dependencies": {
-    "body-parser": "^1.16.1",
+    "body-parser": "^1.18.3",
     "express": "^4.14.1",
     "fs": "0.0.1-security",
     "http": "0.0.0",
@@ -21,10 +21,10 @@
     "node-wifi": "^1.2.5",
     "node-wifi-scanner": "^1.0.0",
     "os": "^0.1.1",
-    "request": "^2.81.0",
-    "socket.io": "^2.0.3",
-    "socket.io-client": "^2.0.3",
-    "sqlite3": "^3.1.13",
-    "zingchart": "^2.6.1"
+    "request": "^2.87.0",
+    "socket.io": "^2.1.1",
+    "socket.io-client": "^2.1.1",
+    "sqlite3": "^4.0.0",
+    "zingchart": "^2.7.1"
   }
 }
