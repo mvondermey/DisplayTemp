@@ -3,8 +3,10 @@ var express = require('express');
 var fs = require('fs');
 var http = require('http');
 var network = require('network');
+//
 // var wifi = require('iwlist')('wlan0');
 //var wifi = require('node-wifi'); //Windows
+//
 var bodyParser = require("body-parser");
 var jsonfile = require('jsonfile');
 const sqlite3 = require('sqlite3').verbose();
@@ -14,7 +16,6 @@ var file = 'data.json';
 // Initialize wifi module 
 // Absolutely necessary even to set interface to null 
 //
-
 //
   var Singleton = (function () {
     var instance;
@@ -91,12 +92,7 @@ function GetDBID(callback){
     //
 }
 //
-
-//
-
 //CheckIfConfigurationTableExists(GetDBID);
-
-
 //
 var app = express();
 var app2 = express();
@@ -109,9 +105,11 @@ var app7 = express();
 var port7 = 3700;
 //
 var app8 = express();
+var app9 = express();
+var app10 = express();
 //
-console.log("Chat Server running on port="+port7);
-
+//console.log("Chat Server running on port="+port7);
+//
 // Create Chat Server
 var io = require('socket.io').listen(app7.listen(port7),function(){
     console.log("Chat Server running on port="+port7);
@@ -138,14 +136,18 @@ io.sockets.on('connection', function (socket) {
     });
 });
 //
-//
 app7.get("/", function(req, res){
     res.send("Chat running!");
 });
 //
+app9.get("/", function(req, res){
+    res.send("DisplayTemp!");
+});
+//
+//
 var ioClient = require('socket.io-client');
-var socketClient = ioClient.connect('http://192.168.12.231:3700');
-//socketClient = ioClient.connect('http://localhost:3700');
+//var socketClient = ioClient.connect('http://192.168.12.231:3700');
+socketClient = ioClient.connect('http://localhost:3700');
 // Add a connect listener
 socketClient.on('connect', function (socket) {
     console.log('Connected!');
@@ -285,9 +287,6 @@ app4.get('/', function (req, res) {
 //
 });
 //
-//
-
-//
 app2.post('/',function(req,res){
     //
     console.log("Inside temperature");
@@ -302,14 +301,10 @@ app2.post('/',function(req,res){
     //
 });
 //
-
-//
-app.listen(3000, function () {
-  console.log('Example app listening on port 3000! Return Temperature');
+app.listen(3100, function () {
+  console.log('Example app listening on port 3100! Return Temperature');
   
 });
-//
-
 //
 app2.use(express.static(__dirname + '/public/images'));
 /*
@@ -390,20 +385,18 @@ app2.get('/', function (req, res) {
 //
 });
 });
-
+//
 app2.listen(3001, function () {
   console.log('Example app2 listening on port 3001!. Local Webpage');
 });
-
+//
 app3.listen(3003, function () {
   console.log('Example app3 listening on port 3003!. Return available Network to connect');
 });
-
+//
 app4.listen(3004, function () {
   console.log('Example app4 listening on port 3004!. Return available Network devices');
 });
-
-
 //
 app6.listen(3006, function () {
   console.log('Example app6 listening on port 3006!. Set Network devices');
@@ -413,7 +406,13 @@ app8.listen(3008, function () {
   console.log('app8 listening on port 3008!. Return DB stored data');
 });
 //
-
+app9.listen(80, function () {
+  console.log('app9 listening on port 80!');
+});
+//
+app10.listen(443, function () {
+  console.log('app10 listening on port 443!');
+});
 //
 function getIPAddress(callback){
     //
@@ -426,10 +425,10 @@ function getIPAddress(callback){
     } else {
         var string1 = stdout.toString();
         var hostname = string1.trim();
-        console.log('stdout: ', hostname);
+        console.log('stdout hostname: ', hostname);
         //
         exec('ipconfig | findstr "IPv4" ', function(error, stdout, stderr) {
-        console.log('stdout: ', stdout);
+        console.log('stdout hostname: ', stdout);
         var words = stdout.toString().trim().split(" ");
         console.log("length: "+words.length);
         //
@@ -452,7 +451,7 @@ function getTemperature(callback) {
 console.log("Entering");
     return http.get({
         host: '127.0.0.1',
-        port: 3000,
+        port: 3100,
         path: '/'
     }, function(response) {
         // Continuously update stream with data
@@ -481,7 +480,7 @@ console.log("Entering");
     console.log("Entering");
     return http.get({
         host: '127.0.0.1',
-        port: 3000,
+        port: 3100,
         path: '/'
     }, function(response) {
         // Continuously update stream with data
@@ -496,7 +495,7 @@ console.log("Entering");
         });
     });
     }
-    
+    //
     function getDBDataJson(callback) {
     console.log("Entering");
     return http.get({
@@ -514,7 +513,7 @@ console.log("Entering");
         });
     });
     }
-    
+    //
     function getDBTemperatureArray(callback){
         //
                getDBDataJson ( function (DBData)

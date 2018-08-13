@@ -3,15 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/package.json</file>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/public/Chart.html</file>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/public/mystyle.css</file>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/public/index.html</file>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/public/index_1.html</file>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/public/WifiConnected.html</file>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/public/wifi.html</file>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/temp.js</file>
-            <file>file:/C:/Users/mvond/Documents/NetBeansProjects/DisplayTemp/.git/config</file>
+            <file>file:/C:/Users/martin.vondermey/Documents/NetBeansProjects/DisplayTemp/package.json</file>
+            <file>file:/C:/Users/martin.vondermey/Documents/NetBeansProjects/DisplayTemp/data.json</file>
+            <file>file:/C:/Users/martin.vondermey/Documents/NetBeansProjects/DisplayTemp/main.js</file>
+            <file>file:/C:/Users/martin.vondermey/Documents/NetBeansProjects/DisplayTemp/temp.js</file>
+            <file>file:/C:/Users/martin.vondermey/Documents/NetBeansProjects/DisplayTemp/InitDB.js</file>
+            <file>file:/C:/Users/martin.vondermey/Documents/NetBeansProjects/DisplayTemp/package-lock.json</file>
         </group>
     </open-files>
 </project-private>
