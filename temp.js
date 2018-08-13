@@ -105,8 +105,8 @@ var app7 = express();
 var port7 = 3700;
 //
 var app8 = express();
-var app9 = express();
-var app10 = express();
+//var app9 = express();
+//var app10 = express();
 //
 //console.log("Chat Server running on port="+port7);
 //
@@ -140,9 +140,9 @@ app7.get("/", function(req, res){
     res.send("Chat running!");
 });
 //
-app9.get("/", function(req, res){
-    res.send("DisplayTemp!");
-});
+//app9.get("/", function(req, res){
+//    res.send("DisplayTemp!");
+//});
 //
 //
 var ioClient = require('socket.io-client');
@@ -405,14 +405,16 @@ app6.listen(3006, function () {
 app8.listen(3008, function () {
   console.log('app8 listening on port 3008!. Return DB stored data');
 });
+
+//MvdM
 //
-app9.listen(80, function () {
-  console.log('app9 listening on port 80!');
-});
+//app9.listen(80, function () {
+//  console.log('app9 listening on port 80!');
+//});
 //
-app10.listen(443, function () {
-  console.log('app10 listening on port 443!');
-});
+//app10.listen(443, function () {
+//  console.log('app10 listening on port 443!');
+//});
 //
 function getIPAddress(callback){
     //
@@ -428,7 +430,7 @@ function getIPAddress(callback){
         console.log('stdout hostname: ', hostname);
         //
         exec('ipconfig | findstr "IPv4" ', function(error, stdout, stderr) {
-        console.log('stdout hostname: ', stdout);
+        console.log('stdout hostname : ', stdout);
         var words = stdout.toString().trim().split(" ");
         console.log("length: "+words.length);
         //
