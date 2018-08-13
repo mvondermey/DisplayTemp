@@ -427,7 +427,7 @@ function getIPAddress(callback){
     } else {
         var string1 = stdout.toString();
         var hostname = string1.trim();
-        console.log('stdout hostname: ', hostname);
+        console.log('stdout hostname: ', stdout);
         //
         exec('ipconfig | findstr "IPv4" ', function(error, stdout, stderr) {
         console.log('stdout hostname : ', stdout);
