@@ -431,7 +431,7 @@ function getIPAddress(callback){
         console.log('stdout hostname: ', stdout);
         //
         exec('ipconfig | findstr "IPv4" ', function(error, stdout, stderr) {
-        console.log('stdout hostname : ', stdout);
+        console.log('stdout hostname2 : ', hostname);
         var words = stdout.toString().trim().split(" ");
         console.log("length: "+words.length);
         //
