@@ -420,6 +420,7 @@ function getIPAddress(callback){
     //
     var exec = require('child_process').exec;
     exec('hostname ', function(error, stdout, stderr) {
+    console.log('stdout hostname : ' + stdout);
     if (error !== null) {
             console.log('exec error: ', error);
             console.log('stderr: ', stderr);
