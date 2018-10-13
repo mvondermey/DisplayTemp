@@ -377,7 +377,6 @@ app2.get('/', function (req, res) {
             var msg2 = msg.replace(/{{CurrentTemperature}}/gi,parseFloat(Temperatur).toFixed(2));
             var msg3 = msg2.replace(/{{TargetTemperature}}/gi,parseFloat(JSON.parse(obj).temperature1).toFixed(2));
             res.send(msg3);
-        
             //
         });
         //
