@@ -12,7 +12,7 @@
   "contributors": [],
   "dependencies": {
     "body-parser": "^1.18.3",
-    "chart.js": "^2.7.2",
+    "chart.js": "^2.9.4",
     "chartjs-node-canvas": "^1.1.6",
     "express": "^4.14.1",
     "fs": "0.0.1-security",
